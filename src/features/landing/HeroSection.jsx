@@ -5,9 +5,9 @@ const MAP_STYLE =
   "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
 
 const INITIAL_VIEW = {
-  longitude: 0,
-  latitude: 20,
-  zoom: 3,
+  longitude: 30,
+  latitude: 45,
+  zoom: 3.5,
 }
 
 export default function HeroSection() {
@@ -36,8 +36,8 @@ export default function HeroSection() {
     <div
       style={{
         position: "absolute",
-        inset: 0,
-        zIndex: 0,
+        inset: 1,
+        zIndex: 2,
       }}
     >
       <Map

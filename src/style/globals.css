@@ -41,11 +41,22 @@ body {
   background-clip: text;
 }
 
-.glass-card {
-  background: rgba(38, 38, 38, 0.6);
-  backdrop-filter: blur(20px);
-}
-
 .cyan-glow {
   box-shadow: 0px 0px 32px rgba(129, 236, 255, 0.15);
+}
+
+.form-card {
+  background: rgba(26, 25, 25, 0.25);
+  backdrop-filter: blur(4px);
+  transition: background 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+.form-card:hover {
+  background: rgba(26, 25, 25, 0.88);
+  backdrop-filter: blur(24px);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
 }
