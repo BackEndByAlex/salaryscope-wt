@@ -1,0 +1,26 @@
+{
+  "name": "assignment-wt",
+  "version": "1.0.0",
+  "description": "*Replace with the name of your project.*",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnu.se:1dv027/student/aa227wr/assignment-wt.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.1"
+  }
+}
