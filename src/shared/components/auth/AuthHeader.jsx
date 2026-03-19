@@ -1,10 +1,13 @@
+import { Link } from "react-router"
 import Logo from "../Logo.jsx"
 
 export default function AuthHeader() {
   return (
     <header className="fixed top-0 w-full z-50 h-14 flex items-center justify-between px-6">
       <div className="flex items-center gap-3">
-        <Logo size={24} variant="wordmark" />
+        <Link to="/" className="flex items-center">
+          <Logo size={24} variant="wordmark" />
+        </Link>
         <span className="h-4 w-px bg-outline-variant/40"></span>
         <span className="text-[0.6875rem] uppercase tracking-widest font-bold text-on-surface-variant">
           Oracle Node v4.0
