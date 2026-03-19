@@ -1,1 +1,51 @@
+@import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-primary: #81ecff;
+  --color-primary-dim: #00d4ec;
+  --color-secondary: #c3f400;
+  --color-tertiary: #d277ff;
+  --color-error: #ff716c;
+
+  --color-surface: #0e0e0e;
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #131313;
+  --color-surface-container: #1a1919;
+  --color-surface-container-high: #201f1f;
+  --color-surface-container-highest: #262626;
+  --color-surface-variant: #262626;
+  --color-surface-bright: #2c2c2c;
+  --color-surface-dim: #0e0e0e;
+
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #adaaaa;
+  --color-on-primary: #005762;
+  --color-on-secondary: #455900;
+  --color-outline: #777575;
+  --color-outline-variant: #494847;
+}
+
+body {
+  background-color: #0e0e0e;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #81ecff 0%, #00e3fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba(38, 38, 38, 0.6);
+  backdrop-filter: blur(20px);
+}
+
+.cyan-glow {
+  box-shadow: 0px 0px 32px rgba(129, 236, 255, 0.15);
+}
