@@ -1,5 +1,6 @@
-import { Link } from 'react-router'
-import HeroSection from './HeroSection.jsx'
+import { Link } from "react-router"
+import HeroSection from "./HeroSection.jsx"
+import Logo from "../../shared/Logo.jsx"
 
 export default function LandingPage() {
   return (
@@ -10,9 +11,7 @@ export default function LandingPage() {
         style={{ boxShadow: "0px 0px 32px rgba(129, 236, 255, 0.08)" }}
       >
         <div className="flex items-center gap-8">
-          <span className="text-2xl font-black tracking-tighter text-primary uppercase">
-            SalaryScope
-          </span>
+          <Logo size={28} variant="wordmark" />
           <nav className="hidden md:flex items-center gap-6">
             <a
               href="#"
@@ -66,9 +65,9 @@ export default function LandingPage() {
                 for Developers
               </h1>
               <p className="text-on-surface-variant text-lg max-w-lg mx-auto mb-12 font-medium">
-                Access the most granular database of technology compensation.
-                Decipher market trends with surgical precision and geospatial
-                depth.
+                Visualize benchmark salaries across 100+ countries and 10,000+
+                companies, from entry-level to executive and everything in
+                between between 2020 to 2025.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="cyan-glow bg-primary text-on-primary font-bold px-8 py-4 rounded-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
@@ -88,7 +87,6 @@ export default function LandingPage() {
                 </Link>
               </div>
             </div>
-
           </div>
         </section>
 

@@ -1,5 +1,6 @@
 import { Link } from "react-router"
 import RegisterBackground from "./RegisterBackground.jsx"
+import Logo from "../../shared/Logo.jsx"
 
 export default function RegisterPage() {
   return (
@@ -9,9 +10,7 @@ export default function RegisterPage() {
       {/* Fixed minimal header */}
       <header className="fixed top-0 w-full z-50 h-14 flex items-center justify-between px-6">
         <div className="flex items-center gap-3">
-          <span className="text-xl font-black tracking-tighter text-primary uppercase">
-            SalaryScope
-          </span>
+          <Logo size={24} variant="wordmark" />
           <span className="h-4 w-px bg-outline-variant/40"></span>
           <span className="text-[0.6875rem] uppercase tracking-widest font-bold text-on-surface-variant">
             Oracle Node v4.0
@@ -170,7 +169,7 @@ export default function RegisterPage() {
               <p className="text-center text-sm text-on-surface-variant mt-6">
                 Already have an account?{" "}
                 <Link
-                  to="/"
+                  to="/login"
                   className="text-primary hover:text-primary-dim transition-colors font-semibold"
                 >
                   Sign In
