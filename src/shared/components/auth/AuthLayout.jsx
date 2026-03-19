@@ -1,4 +1,4 @@
-import RegisterBackground from "../../features/auth/RegisterBackground.jsx"
+import RegisterBackground from "../../../features/auth/RegisterBackground.jsx"
 import AuthHeader from "./AuthHeader.jsx"
 
 export default function AuthLayout({ title, subtitle, children }) {
