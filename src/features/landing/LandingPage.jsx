@@ -1,6 +1,7 @@
 import { Link } from "react-router"
 import HeroSection from "./HeroSection.jsx"
-import Logo from "../../shared/Logo.jsx"
+import Logo from "../../shared/components/Logo.jsx"
+import AppFooter from "../../shared/components/AppFooter.jsx"
 
 export default function LandingPage() {
   return (
@@ -201,17 +202,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-8 border-t border-outline-variant/15 bg-surface">
-        <div className="flex flex-col md:flex-row justify-between items-center px-12 text-[0.6875rem] text-on-surface-variant uppercase tracking-widest gap-4">
-          <div>© 2026 SalaryScope Terminal</div>
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-primary transition-colors">
-              Gitlab Source
-            </a>
-          </div>
-        </div>
-      </footer>
+      <AppFooter py="py-8" links={[{ label: "Gitlab Source", href: "#" }]} />
     </div>
   )
 }
