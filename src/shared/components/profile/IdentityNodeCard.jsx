@@ -20,7 +20,10 @@ function ReadOnlyField({ label, value }) {
   )
 }
 
-export default function IdentityNodeCard() {
+export default function IdentityNodeCard({ user, loading }) {
+  const displayName = loading ? "…" : (user?.email.split("@")[0] ?? "—")
+  const email = loading ? "…" : (user?.email ?? "—")
+
   return (
     <div className="bg-surface-container p-6 space-y-5">
       <div>
@@ -30,10 +33,9 @@ export default function IdentityNodeCard() {
       </div>
 
       <div className="flex gap-4">
-        <ReadOnlyField label="Display Name" value="Anonymous Operator" />
-        <ReadOnlyField label="Email" value="user@salaryscope.io" />
+        <ReadOnlyField label="Display Name" value={displayName} />
+        <ReadOnlyField label="Email" value={email} />
       </div>
-
     </div>
   )
 }

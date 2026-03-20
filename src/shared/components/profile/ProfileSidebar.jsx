@@ -1,49 +1,40 @@
 import GitHubIcon from "../icons/GitHubIcon.jsx"
 
-const STATS = [
-  { value: "0", color: "text-primary", label: "Records Contributed" },
-  { value: "0", color: "text-on-surface", label: "Salary Queries" },
-  { value: "2026", color: "text-secondary", label: "Member Since" },
-]
-
-function SidebarAvatar() {
-  return (
-    <div
-      className="h-20 w-20 rounded-lg bg-surface-container-highest border border-outline-variant/15 flex items-center justify-center"
-      style={{ boxShadow: "0 0 24px rgba(129, 236, 255, 0.12)" }}
-    >
-      <span className="text-2xl font-black text-primary select-none">U</span>
-    </div>
-  )
+function avatarLetter(email) {
+  return email ? email[0].toUpperCase() : "?"
 }
 
-function SidebarStats() {
-  return (
-    <div className="space-y-4">
-      {STATS.map(({ value, color, label }) => (
-        <div key={label}>
-          <p className={`text-3xl font-black leading-none ${color}`}>{value}</p>
-          <p className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mt-1">
-            {label}
-          </p>
-        </div>
-      ))}
-    </div>
-  )
+function memberSince(createdAt) {
+  if (!createdAt) return "—"
+  const year = new Date(Number(createdAt)).getFullYear()
+  return isNaN(year) ? "—" : String(year)
 }
 
-export default function ProfileSidebar() {
+export default function ProfileSidebar({ user, loading }) {
+  const stats = [
+    { value: "0", color: "text-primary", label: "Records Contributed" },
+    { value: "0", color: "text-on-surface", label: "Salary Queries" },
+    { value: loading ? "…" : memberSince(user?.createdAt), color: "text-secondary", label: "Member Since" },
+  ]
+
   return (
     <aside className="w-80 shrink-0 sticky top-20 self-start bg-surface-container-low p-6 space-y-6">
       <div className="space-y-3">
-        <SidebarAvatar />
+        <div
+          className="h-20 w-20 rounded-lg bg-surface-container-highest border border-outline-variant/15 flex items-center justify-center"
+          style={{ boxShadow: "0 0 24px rgba(129, 236, 255, 0.12)" }}
+        >
+          <span className="text-2xl font-black text-primary select-none">
+            {loading ? "…" : avatarLetter(user?.email)}
+          </span>
+        </div>
 
         <div>
           <p className="text-xl font-black text-on-surface leading-tight">
-            Anonymous Operator
+            {loading ? "Loading…" : (user?.email.split("@")[0] ?? "Unknown")}
           </p>
           <p className="text-sm text-on-surface-variant mt-0.5">
-            user@salaryscope.io
+            {loading ? "" : (user?.email ?? "")}
           </p>
         </div>
 
@@ -64,7 +55,16 @@ export default function ProfileSidebar() {
 
       <div className="h-px bg-surface-container-high" />
 
-      <SidebarStats />
+      <div className="space-y-4">
+        {stats.map(({ value, color, label }) => (
+          <div key={label}>
+            <p className={`text-3xl font-black leading-none ${color}`}>{value}</p>
+            <p className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mt-1">
+              {label}
+            </p>
+          </div>
+        ))}
+      </div>
     </aside>
   )
 }
