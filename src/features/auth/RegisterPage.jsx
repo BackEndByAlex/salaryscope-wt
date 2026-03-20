@@ -31,8 +31,7 @@ export default function RegisterPage() {
         variables: { input: { email, password } },
       })
       setUser(data.register.user)
-      // TODO: change to /dashboard ALEX!! don't forget!
-      navigate("/profile")
+      navigate("/dashboard")
     } catch (err) {
       setError(err.message)
     }

@@ -18,7 +18,7 @@ export default function HeroSection() {
     const map = event.target
 
     function rotate() {
-      bearingRef.current = (bearingRef.current + 0.05) % 360
+      bearingRef.current = (bearingRef.current + 0.03) % 360
       map.rotateTo(bearingRef.current, { duration: 0 })
       animationRef.current = requestAnimationFrame(rotate)
     }

@@ -22,8 +22,7 @@ export default function LoginPage() {
     try {
       const { data } = await login({ variables: { input: { email, password } } })
       setUser(data.login.user)
-      // TODO: change to /dashboard ALEX!! don't forget!
-      navigate("/profile")
+      navigate("/dashboard")
     } catch (err) {
       setError(err.message)
     }
