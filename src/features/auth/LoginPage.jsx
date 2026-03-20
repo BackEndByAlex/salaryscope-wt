@@ -20,7 +20,9 @@ export default function LoginPage() {
     e.preventDefault()
     setError(null)
     try {
-      const { data } = await login({ variables: { input: { email, password } } })
+      const { data } = await login({
+        variables: { input: { email, password } },
+      })
       setUser(data.login.user)
       navigate("/dashboard")
     } catch (err) {
@@ -51,9 +53,7 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {error && (
-          <p className="text-xs text-error">{error}</p>
-        )}
+        {error && <p className="text-xs text-error">{error}</p>}
 
         <button
           type="submit"
@@ -66,7 +66,10 @@ export default function LoginPage() {
 
       <p className="text-center text-sm text-on-surface-variant mt-6">
         No account yet?{" "}
-        <Link to="/register" className="text-primary hover:text-primary-dim transition-colors font-semibold">
+        <Link
+          to="/register"
+          className="text-primary hover:text-primary-dim transition-colors font-semibold"
+        >
           Create Account
         </Link>
       </p>

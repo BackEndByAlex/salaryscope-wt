@@ -36,12 +36,16 @@ export default function UserRecords() {
               className="flex items-center justify-between px-4 py-3 bg-surface-container-high border border-outline-variant/15"
             >
               <div>
-                <p className="text-sm font-medium text-on-surface">{record.title}</p>
+                <p className="text-sm font-medium text-on-surface">
+                  {record.title}
+                </p>
                 <p className="text-[0.6875rem] text-on-surface-variant uppercase tracking-widest mt-0.5">
                   {record.date}
                 </p>
               </div>
-              <span className="text-primary font-black text-sm">{record.salary}</span>
+              <span className="text-primary font-black text-sm">
+                {record.salary}
+              </span>
             </li>
           ))}
         </ul>

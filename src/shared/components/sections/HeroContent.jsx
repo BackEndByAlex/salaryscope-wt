@@ -26,13 +26,17 @@ export default function HeroContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="cyan-glow bg-primary text-on-primary font-bold px-8 py-4 rounded-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
               <span>Enter Dashboard</span>
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              <span className="material-symbols-outlined text-[18px]">
+                arrow_forward
+              </span>
             </button>
             <Link
               to="/register"
               className="bg-transparent border border-outline-variant/15 text-on-surface font-bold px-8 py-4 rounded-sm flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors active:scale-95"
             >
-              <span className="material-symbols-outlined text-[18px]">brand_awareness</span>
+              <span className="material-symbols-outlined text-[18px]">
+                brand_awareness
+              </span>
               <span>Login with GitHub</span>
             </Link>
           </div>

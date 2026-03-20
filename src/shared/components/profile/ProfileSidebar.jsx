@@ -14,7 +14,11 @@ export default function ProfileSidebar({ user, loading }) {
   const stats = [
     { value: "0", color: "text-primary", label: "Records Contributed" },
     { value: "0", color: "text-on-surface", label: "Salary Queries" },
-    { value: loading ? "…" : memberSince(user?.createdAt), color: "text-secondary", label: "Member Since" },
+    {
+      value: loading ? "…" : memberSince(user?.createdAt),
+      color: "text-secondary",
+      label: "Member Since",
+    },
   ]
 
   return (
@@ -58,7 +62,9 @@ export default function ProfileSidebar({ user, loading }) {
       <div className="space-y-4">
         {stats.map(({ value, color, label }) => (
           <div key={label}>
-            <p className={`text-3xl font-black leading-none ${color}`}>{value}</p>
+            <p className={`text-3xl font-black leading-none ${color}`}>
+              {value}
+            </p>
             <p className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mt-1">
               {label}
             </p>

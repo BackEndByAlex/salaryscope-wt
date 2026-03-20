@@ -12,9 +12,24 @@ export default function LandingNav() {
           <Logo size={28} variant="wordmark" />
         </Link>
         <nav className="hidden md:flex items-center gap-6">
-          <a href="#" className="text-on-surface-variant hover:text-on-surface text-sm transition-colors">Analytics</a>
-          <a href="#" className="text-on-surface-variant hover:text-on-surface text-sm transition-colors">Trends</a>
-          <a href="#" className="text-on-surface-variant hover:text-on-surface text-sm transition-colors">Geography</a>
+          <a
+            href="#"
+            className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
+          >
+            Analytics
+          </a>
+          <a
+            href="#"
+            className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
+          >
+            Trends
+          </a>
+          <a
+            href="#"
+            className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
+          >
+            Geography
+          </a>
         </nav>
       </div>
       <div className="flex items-center gap-3">

@@ -17,6 +17,10 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.6",
+    "@deck.gl/aggregation-layers": "^9.2.11",
+    "@deck.gl/core": "^9.2.11",
+    "@deck.gl/layers": "^9.2.11",
+    "@deck.gl/mapbox": "^9.2.11",
     "graphql": "^16.13.1",
     "maplibre-gl": "^5.20.2",
     "react": "^19.2.4",
