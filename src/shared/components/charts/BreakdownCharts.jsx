@@ -1,4 +1,11 @@
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts"
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts"
 
 const TOOLTIP_STYLE = {
   backgroundColor: "#1a1919",
@@ -9,7 +16,7 @@ const TOOLTIP_STYLE = {
 }
 
 const EXPERIENCE_COLORS = ["#81ecff", "#81ecff99", "#81ecff55", "#81ecff22"]
-const WORK_COLORS      = ["#c3f400", "#c3f40088", "#c3f40044"]
+const WORK_COLORS = ["#c3f400", "#c3f40088", "#c3f40044"]
 
 function DonutChart({ data, colors, title, subtitle }) {
   const total = data.reduce((s, d) => s + d.value, 0)
@@ -43,7 +50,9 @@ function DonutChart({ data, colors, title, subtitle }) {
             iconType="square"
             iconSize={8}
             formatter={(value) => (
-              <span style={{ color: "#adaaaa", fontSize: "0.7rem" }}>{value}</span>
+              <span style={{ color: "#adaaaa", fontSize: "0.7rem" }}>
+                {value}
+              </span>
             )}
           />
         </PieChart>
@@ -57,15 +66,15 @@ function DonutChart({ data, colors, title, subtitle }) {
 
 export default function BreakdownCharts({ data }) {
   const experienceData = [
-    { name: "Senior (SE)",    value: data?.senior?.totalCount    ?? 0 },
-    { name: "Mid (MI)",       value: data?.mid?.totalCount       ?? 0 },
-    { name: "Entry (EN)",     value: data?.entry?.totalCount     ?? 0 },
+    { name: "Senior (SE)", value: data?.senior?.totalCount ?? 0 },
+    { name: "Mid (MI)", value: data?.mid?.totalCount ?? 0 },
+    { name: "Entry (EN)", value: data?.entry?.totalCount ?? 0 },
     { name: "Executive (EX)", value: data?.executive?.totalCount ?? 0 },
   ]
 
   const workSettingData = [
-    { name: "Remote",    value: data?.remote?.totalCount   ?? 0 },
-    { name: "Hybrid",    value: data?.hybrid?.totalCount   ?? 0 },
+    { name: "Remote", value: data?.remote?.totalCount ?? 0 },
+    { name: "Hybrid", value: data?.hybrid?.totalCount ?? 0 },
     { name: "In-person", value: data?.inPerson?.totalCount ?? 0 },
   ]
 

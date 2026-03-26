@@ -21,14 +21,20 @@ function SectionHeader({ label, title, subtitle }) {
         </span>
       </div>
       <h2 className="text-3xl font-black tracking-tighter mb-2">{title}</h2>
-      {subtitle && <p className="text-on-surface-variant text-sm">{subtitle}</p>}
+      {subtitle && (
+        <p className="text-on-surface-variant text-sm">{subtitle}</p>
+      )}
     </div>
   )
 }
 
 export default function AnalyticsPage() {
-  const { data: overviewData, loading: overviewLoading } = useQuery(ANALYTICS_OVERVIEW_QUERY)
-  const { data: chartsData,   loading: chartsLoading   } = useQuery(ANALYTICS_CHARTS_QUERY)
+  const { data: overviewData, loading: overviewLoading } = useQuery(
+    ANALYTICS_OVERVIEW_QUERY,
+  )
+  const { data: chartsData, loading: chartsLoading } = useQuery(
+    ANALYTICS_CHARTS_QUERY,
+  )
   const { data: breakdownData } = useQuery(ANALYTICS_BREAKDOWN_QUERY)
 
   return (
@@ -49,13 +55,13 @@ export default function AnalyticsPage() {
               Salary <span className="gradient-text">Analytics</span>
             </h1>
             <p className="text-on-surface-variant text-lg max-w-xl">
-              Explore patterns across 137,000+ salary records from 100+ countries and 10,000+ companies.
+              Explore patterns across 137,000+ salary records from 100+
+              countries and 10,000+ companies.
             </p>
           </div>
         </div>
 
         <div className="px-6 md:px-12 lg:px-24 py-16 space-y-20 max-w-7xl mx-auto">
-
           {/* Section 1 — Overview */}
           <section>
             <SectionHeader
@@ -63,10 +69,11 @@ export default function AnalyticsPage() {
               title="Dataset at a Glance"
               subtitle="Total coverage across the full dataset."
             />
-            {overviewLoading
-              ? <div className="h-32 bg-surface-container animate-pulse" />
-              : <OverviewStats data={overviewData} />
-            }
+            {overviewLoading ? (
+              <div className="h-32 bg-surface-container animate-pulse" />
+            ) : (
+              <OverviewStats data={overviewData} />
+            )}
           </section>
 
           {/* Section 2 — Top Countries */}
@@ -76,10 +83,11 @@ export default function AnalyticsPage() {
               title="Top Countries by Records"
               subtitle="Which countries contribute the most salary data."
             />
-            {chartsLoading
-              ? <div className="h-96 bg-surface-container animate-pulse" />
-              : <TopCountriesChart data={chartsData} />
-            }
+            {chartsLoading ? (
+              <div className="h-96 bg-surface-container animate-pulse" />
+            ) : (
+              <TopCountriesChart data={chartsData} />
+            )}
           </section>
 
           {/* Section 3 — Top Companies */}
@@ -89,10 +97,11 @@ export default function AnalyticsPage() {
               title="Top Rated Companies"
               subtitle="Highest employer ratings from the salary_extra dataset."
             />
-            {chartsLoading
-              ? <div className="h-96 bg-surface-container animate-pulse" />
-              : <TopCompaniesChart data={chartsData} />
-            }
+            {chartsLoading ? (
+              <div className="h-96 bg-surface-container animate-pulse" />
+            ) : (
+              <TopCompaniesChart data={chartsData} />
+            )}
           </section>
 
           {/* Section 4 — Job Categories */}
@@ -102,10 +111,11 @@ export default function AnalyticsPage() {
               title="Jobs by Category"
               subtitle="How many job titles fall into each category."
             />
-            {chartsLoading
-              ? <div className="h-64 bg-surface-container animate-pulse" />
-              : <JobCategoriesChart data={chartsData} />
-            }
+            {chartsLoading ? (
+              <div className="h-64 bg-surface-container animate-pulse" />
+            ) : (
+              <JobCategoriesChart data={chartsData} />
+            )}
           </section>
 
           {/* Section 5 — Breakdowns */}
@@ -117,7 +127,6 @@ export default function AnalyticsPage() {
             />
             <BreakdownCharts data={breakdownData} />
           </section>
-
         </div>
       </main>
     </div>

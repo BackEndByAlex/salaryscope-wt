@@ -1,4 +1,12 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts"
 
 const TOOLTIP_STYLE = {
   backgroundColor: "#1a1919",
@@ -18,11 +26,25 @@ export default function JobCategoriesChart({ data }) {
     <div className="bg-surface-container p-8">
       <div className="mb-6">
         <h3 className="text-xl font-bold mb-1">Jobs by Category</h3>
-        <p className="text-on-surface-variant text-xs">Number of job titles per category</p>
+        <p className="text-on-surface-variant text-xs">
+          Number of job titles per category
+        </p>
       </div>
-      <ResponsiveContainer width="100%" height={Math.max(260, sorted.length * 36)}>
-        <BarChart data={sorted} layout="vertical" margin={{ left: 16, right: 32, top: 0, bottom: 0 }}>
-          <XAxis type="number" tick={{ fill: "#adaaaa", fontSize: 10 }} axisLine={false} tickLine={false} />
+      <ResponsiveContainer
+        width="100%"
+        height={Math.max(260, sorted.length * 36)}
+      >
+        <BarChart
+          data={sorted}
+          layout="vertical"
+          margin={{ left: 16, right: 32, top: 0, bottom: 0 }}
+        >
+          <XAxis
+            type="number"
+            tick={{ fill: "#adaaaa", fontSize: 10 }}
+            axisLine={false}
+            tickLine={false}
+          />
           <YAxis
             type="category"
             dataKey="name"
