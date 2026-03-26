@@ -124,7 +124,10 @@ function TopographyCard() {
       </div>
 
       <div className="relative z-10 mt-6">
-        <Link to="/dashboard" className="bg-surface-variant px-4 py-2 text-[0.6875rem] font-bold uppercase tracking-wider text-secondary hover:text-on-surface transition-colors">
+        <Link
+          to="/dashboard"
+          className="bg-surface-variant px-4 py-2 text-[0.6875rem] font-bold uppercase tracking-wider text-secondary hover:text-on-surface transition-colors"
+        >
           Explore Map →
         </Link>
       </div>
@@ -220,7 +223,9 @@ function TerminalCard() {
 
       {/* Header */}
       <div className="relative z-10 flex items-center gap-3 mb-4 shrink-0">
-        <span className="material-symbols-outlined text-primary text-2xl">terminal</span>
+        <span className="material-symbols-outlined text-primary text-2xl">
+          terminal
+        </span>
         <h3 className="text-xl font-bold">Direct Access</h3>
       </div>
 
@@ -245,7 +250,9 @@ function TerminalCard() {
               className="flex items-center justify-between py-3 border-b border-outline-variant/10 hover:bg-surface-container-high px-1 transition-colors cursor-pointer group"
             >
               <div className="flex flex-col min-w-0 gap-0.5">
-                <span className={`font-semibold truncate ${r.color} group-hover:opacity-100 opacity-85`}>
+                <span
+                  className={`font-semibold truncate ${r.color} group-hover:opacity-100 opacity-85`}
+                >
                   {r.role}
                 </span>
                 <span className="text-on-surface-variant/50 text-[0.625rem]">

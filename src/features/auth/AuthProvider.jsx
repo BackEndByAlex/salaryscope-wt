@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { useApolloClient, useQuery } from "@apollo/client/react"
 import { ME_QUERY } from "../../graphql/queries/auth.js"
+import { LOGOUT_MUTATION } from "../../graphql/mutation/auth.js"
 
 const AuthContext = createContext(null)
 
@@ -17,10 +18,7 @@ export function AuthProvider({ children }) {
   }, [data, loading])
 
   async function logout() {
-    await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
-      method: "POST",
-      credentials: "include",
-    })
+    await apolloClient.mutate({ mutation: LOGOUT_MUTATION })
     await apolloClient.clearStore()
     setUser(null)
   }

@@ -33,7 +33,8 @@ export default function CtaSection() {
         </h2>
 
         <p className="text-on-surface-variant text-lg mb-10 max-w-md mx-auto">
-          Explore 137,000 salary records across 100+ countries — no account required.
+          Explore 137,000 salary records across 100+ countries — no account
+          required.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
@@ -42,13 +43,17 @@ export default function CtaSection() {
             className="cyan-glow bg-primary text-on-primary font-bold px-10 py-4 rounded-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
           >
             <span>Enter Dashboard</span>
-            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            <span className="material-symbols-outlined text-[18px]">
+              arrow_forward
+            </span>
           </Link>
           <Link
             to="/register"
             className="bg-transparent border border-outline-variant/20 text-on-surface font-bold px-10 py-4 rounded-sm flex items-center justify-center gap-2 hover:bg-surface-container transition-colors active:scale-95"
           >
-            <span className="material-symbols-outlined text-[18px]">person_add</span>
+            <span className="material-symbols-outlined text-[18px]">
+              person_add
+            </span>
             <span>Create Account</span>
           </Link>
         </div>
@@ -60,14 +65,19 @@ export default function CtaSection() {
               <div
                 key={i}
                 className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[0.5rem] font-bold"
-                style={{ backgroundColor: color + "22", borderColor: color + "44", color }}
+                style={{
+                  backgroundColor: color + "22",
+                  borderColor: color + "44",
+                  color,
+                }}
               >
                 {String.fromCharCode(65 + i)}
               </div>
             ))}
           </div>
           <span className="text-on-surface-variant text-xs font-medium">
-            Join <span className="text-on-surface font-bold">2,400+</span> engineers already benchmarking
+            Join <span className="text-on-surface font-bold">2,400+</span>{" "}
+            engineers already benchmarking
           </span>
         </div>
       </div>

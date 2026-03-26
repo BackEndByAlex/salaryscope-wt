@@ -29,11 +29,15 @@ export default function StatsSection() {
   return (
     <section className="py-20 bg-surface-container-low relative overflow-hidden">
       {/* Smooth fade in from page background above */}
-      <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to bottom, #0e0e0e, transparent)" }}
+      <div
+        className="absolute top-0 left-0 right-0 h-16 pointer-events-none z-10"
+        style={{
+          background: "linear-gradient(to bottom, #0e0e0e, transparent)",
+        }}
       />
       {/* Smooth fade out to page background below */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-10"
+      <div
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-10"
         style={{ background: "linear-gradient(to top, #0e0e0e, transparent)" }}
       />
 
