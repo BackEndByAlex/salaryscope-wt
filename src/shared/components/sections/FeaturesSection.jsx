@@ -1,78 +1,45 @@
 import { Link } from "react-router"
+import { useQuery } from "@apollo/client/react"
+import { FEATURES_QUERY } from "../../../graphql/queries/home.js"
 
-// Static salary data for the topography card — representative sample from the dataset
-const TOP_COUNTRIES = [
-  {
-    name: "United States",
-    avg: 145,
-    max: 220,
-    color: "bg-primary",
-    textColor: "text-primary",
-  },
-  {
-    name: "Switzerland",
-    avg: 128,
-    max: 220,
-    color: "bg-secondary",
-    textColor: "text-secondary",
-  },
-  {
-    name: "Germany",
-    avg: 92,
-    max: 220,
-    color: "bg-primary",
-    textColor: "text-primary",
-  },
-  {
-    name: "United Kingdom",
-    avg: 88,
-    max: 220,
-    color: "bg-primary/70",
-    textColor: "text-primary/70",
-  },
-  {
-    name: "Australia",
-    avg: 83,
-    max: 220,
-    color: "bg-secondary/70",
-    textColor: "text-secondary/70",
-  },
-  {
-    name: "Canada",
-    avg: 79,
-    max: 220,
-    color: "bg-primary/50",
-    textColor: "text-primary/50",
-  },
+const BAR_COLORS = [
+  { bar: "bg-primary",      text: "text-primary" },
+  { bar: "bg-secondary",    text: "text-secondary" },
+  { bar: "bg-primary",      text: "text-primary" },
+  { bar: "bg-primary/70",   text: "text-primary/70" },
+  { bar: "bg-secondary/70", text: "text-secondary/70" },
+  { bar: "bg-primary/50",   text: "text-primary/50" },
 ]
+
+const SCROLL_COLORS = ["text-primary", "text-secondary", "text-on-surface"]
 
 const FILTER_PILLS = [
-  {
-    label: "Role",
-    value: "Software Engineer",
-    color: "text-primary border-primary/30",
-  },
-  {
-    label: "Country",
-    value: "Germany",
-    color: "text-secondary border-secondary/30",
-  },
-  {
-    label: "Experience",
-    value: "Senior",
-    color: "text-on-surface border-outline-variant/40",
-  },
-  {
-    label: "Currency",
-    value: "USD",
-    color: "text-on-surface border-outline-variant/40",
-  },
+  { label: "Role",       value: "Software Engineer", color: "text-primary border-primary/30" },
+  { label: "Country",    value: "Germany",           color: "text-secondary border-secondary/30" },
+  { label: "Experience", value: "Senior",            color: "text-on-surface border-outline-variant/40" },
+  { label: "Currency",   value: "USD",               color: "text-on-surface border-outline-variant/40" },
 ]
 
-function TopographyCard() {
+function fmtCount(n) {
+  if (n >= 1000) return `${Math.round(n / 1000)}k`
+  return `${n}`
+}
+
+function fmtSalary(usd) {
+  if (!usd) return null
+  return `$${Math.round(usd / 1000)}k`
+}
+
+function TopographyCard({ countries }) {
+  const sorted = [...countries]
+    .filter((c) => c.employeeRecordCount > 0)
+    .sort((a, b) => b.employeeRecordCount - a.employeeRecordCount)
+    .slice(0, 6)
+
+  const max = sorted[0]?.employeeRecordCount ?? 1
+
   return (
     <div className="md:col-span-2 md:row-span-2 bg-surface-container p-8 relative overflow-hidden group flex flex-col justify-between">
-      {/* Background glow */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="relative z-10">
@@ -80,7 +47,7 @@ function TopographyCard() {
           <div>
             <h3 className="text-2xl font-bold mb-1">Market Topography</h3>
             <p className="text-on-surface-variant text-sm">
-              Avg. developer salary by country · USD · 2020–2025
+              Top countries by salary records · 2020–2025
             </p>
           </div>
           <span className="text-[0.625rem] uppercase tracking-widest font-bold text-secondary border border-secondary/20 px-2 py-1">
@@ -88,35 +55,31 @@ function TopographyCard() {
           </span>
         </div>
 
-        {/* Bar chart */}
         <div className="space-y-3 mt-4">
-          {TOP_COUNTRIES.map(({ name, avg, max, color, textColor }) => (
-            <div key={name} className="flex items-center gap-3 group/row">
-              <div className="w-32 text-xs text-on-surface-variant font-medium truncate shrink-0">
-                {name}
+          {sorted.map(({ name, employeeRecordCount }, i) => {
+            const { bar, text } = BAR_COLORS[i] ?? BAR_COLORS[BAR_COLORS.length - 1]
+            return (
+              <div key={name} className="flex items-center gap-3 group/row">
+                <div className="w-32 text-xs text-on-surface-variant font-medium truncate shrink-0">
+                  {name}
+                </div>
+                <div className="flex-1 h-5 bg-surface-container-high overflow-hidden">
+                  <div
+                    className={`h-full ${bar} opacity-80 group-hover/row:opacity-100 transition-all duration-500`}
+                    style={{ width: `${(employeeRecordCount / max) * 100}%` }}
+                  />
+                </div>
+                <div className={`text-xs font-bold tabular-nums w-12 text-right ${text}`}>
+                  {fmtCount(employeeRecordCount)}
+                </div>
               </div>
-              <div className="flex-1 h-5 bg-surface-container-high rounded-none overflow-hidden">
-                <div
-                  className={`h-full ${color} opacity-80 group-hover/row:opacity-100 transition-all duration-500`}
-                  style={{ width: `${(avg / max) * 100}%` }}
-                />
-              </div>
-              <div
-                className={`text-xs font-bold tabular-nums w-12 text-right ${textColor}`}
-              >
-                ${avg}k
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
-        {/* X-axis labels */}
         <div className="flex justify-between mt-2 ml-35 mr-13">
-          {["$0", "$50k", "$100k", "$150k", "$200k+"].map((l) => (
-            <span
-              key={l}
-              className="text-[0.5625rem] text-on-surface-variant/40 font-medium"
-            >
+          {["0", "20k", "40k", "60k", "80k+"].map((l) => (
+            <span key={l} className="text-[0.5625rem] text-on-surface-variant/40 font-medium">
               {l}
             </span>
           ))}
@@ -140,9 +103,7 @@ function FiltersCard() {
     <div className="bg-surface-container p-8 flex flex-col justify-between border-l-2 border-secondary overflow-hidden relative">
       <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none" />
       <div className="space-y-4 relative z-10">
-        <span className="material-symbols-outlined text-secondary text-3xl">
-          tune
-        </span>
+        <span className="material-symbols-outlined text-secondary text-3xl">tune</span>
         <h3 className="text-xl font-bold">Atomic Filters</h3>
         <p className="text-on-surface-variant text-xs leading-relaxed">
           Slice by experience, stack, currency, and work-setting in real-time.
@@ -165,105 +126,56 @@ function FiltersCard() {
   )
 }
 
-const SCROLL_RESULTS = [
-  {
-    role: "Senior Software Engineer",
-    location: "Berlin, DE",
-    salary: "$92k",
-    color: "text-primary",
-  },
-  {
-    role: "Staff Engineer",
-    location: "Munich, DE",
-    salary: "$108k",
-    color: "text-secondary",
-  },
-  {
-    role: "Principal Engineer",
-    location: "Zurich, CH",
-    salary: "$145k",
-    color: "text-primary",
-  },
-  {
-    role: "Lead Developer",
-    location: "London, UK",
-    salary: "$88k",
-    color: "text-on-surface",
-  },
-  {
-    role: "Senior Backend Engineer",
-    location: "Amsterdam, NL",
-    salary: "$79k",
-    color: "text-secondary",
-  },
-  {
-    role: "Engineering Manager",
-    location: "Berlin, DE",
-    salary: "$118k",
-    color: "text-primary",
-  },
-  {
-    role: "Frontend Architect",
-    location: "Hamburg, DE",
-    salary: "$95k",
-    color: "text-on-surface",
-  },
-  {
-    role: "Senior Full-Stack",
-    location: "Frankfurt, DE",
-    salary: "$86k",
-    color: "text-secondary",
-  },
-]
+function TerminalCard({ records }) {
+  const items = [...records]
+    .filter((r) => r.salaryInUsd)
+    .sort((a, b) => b.salaryInUsd - a.salaryInUsd)
+    .slice(0, 16)
 
-function TerminalCard() {
+  const doubled = [...items, ...items]
+
   return (
     <div className="bg-surface-container p-6 flex flex-col border-l-2 border-primary overflow-hidden relative">
       <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none" />
 
-      {/* Header */}
       <div className="relative z-10 flex items-center gap-3 mb-4 shrink-0">
-        <span className="material-symbols-outlined text-primary text-2xl">
-          terminal
-        </span>
+        <span className="material-symbols-outlined text-primary text-2xl">terminal</span>
         <h3 className="text-xl font-bold">Direct Access</h3>
       </div>
 
-      {/* Search input */}
       <div className="relative z-10 bg-surface-container-lowest border border-outline-variant/20 px-3 py-2 font-mono text-xs flex items-center gap-1 mb-3 shrink-0">
         <span className="text-primary">▸</span>
-        <span className="text-primary">senior engineer germany</span>
+        <span className="text-primary">top paying roles · all countries</span>
         <span className="w-1.5 h-3.5 bg-primary inline-block animate-pulse ml-0.5" />
       </div>
 
-      {/* Scrolling results list */}
       <div className="flex-1 overflow-hidden relative">
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-linear-to-t from-surface-container to-transparent z-10 pointer-events-none" />
-
         <div
           className="font-mono text-xs"
           style={{ animation: "scroll-up 20s linear infinite" }}
         >
-          {[...SCROLL_RESULTS, ...SCROLL_RESULTS].map((r, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between py-3 border-b border-outline-variant/10 hover:bg-surface-container-high px-1 transition-colors cursor-pointer group"
-            >
-              <div className="flex flex-col min-w-0 gap-0.5">
-                <span
-                  className={`font-semibold truncate ${r.color} group-hover:opacity-100 opacity-85`}
-                >
-                  {r.role}
-                </span>
-                <span className="text-on-surface-variant/50 text-[0.625rem]">
-                  {r.location}
+          {doubled.map((r, i) => {
+            const color = SCROLL_COLORS[i % SCROLL_COLORS.length]
+            return (
+              <div
+                key={i}
+                className="flex items-center justify-between py-3 border-b border-outline-variant/10 hover:bg-surface-container-high px-1 transition-colors cursor-pointer group"
+              >
+                <div className="flex flex-col min-w-0 gap-0.5">
+                  <span className={`font-semibold truncate ${color} group-hover:opacity-100 opacity-85`}>
+                    {r.job.title}
+                  </span>
+                  <span className="text-on-surface-variant/50 text-[0.625rem]">
+                    {r.employeeCountry?.name ?? "—"}
+                  </span>
+                </div>
+                <span className={`font-bold ml-3 shrink-0 text-sm ${color}`}>
+                  {fmtSalary(r.salaryInUsd)}
                 </span>
               </div>
-              <span className={`font-bold ml-3 shrink-0 text-sm ${r.color}`}>
-                {r.salary}
-              </span>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 
@@ -278,6 +190,11 @@ function TerminalCard() {
 }
 
 export default function FeaturesSection() {
+  const { data, loading } = useQuery(FEATURES_QUERY)
+
+  const countries = data?.countries?.countries ?? []
+  const records   = data?.salaryRecords?.records ?? []
+
   return (
     <section className="py-32 px-6">
       <div className="max-w-7xl mx-auto">
@@ -296,11 +213,15 @@ export default function FeaturesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/10 md:h-140">
-          <TopographyCard />
-          <FiltersCard />
-          <TerminalCard />
-        </div>
+        {loading ? (
+          <div className="h-140 bg-surface-container animate-pulse" />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/10 md:h-140">
+            <TopographyCard countries={countries} />
+            <FiltersCard />
+            <TerminalCard records={records} />
+          </div>
+        )}
       </div>
     </section>
   )
