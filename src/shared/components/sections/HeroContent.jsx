@@ -24,12 +24,15 @@ export default function HeroContent() {
             between 2020 to 2025.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="cyan-glow bg-primary text-on-primary font-bold px-8 py-4 rounded-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+            <Link
+              to="/dashboard"
+              className="cyan-glow bg-primary text-on-primary font-bold px-8 py-4 rounded-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
+            >
               <span>Enter Dashboard</span>
               <span className="material-symbols-outlined text-[18px]">
                 arrow_forward
               </span>
-            </button>
+            </Link>
             <Link
               to="/register"
               className="bg-transparent border border-outline-variant/15 text-on-surface font-bold px-8 py-4 rounded-sm flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors active:scale-95"
