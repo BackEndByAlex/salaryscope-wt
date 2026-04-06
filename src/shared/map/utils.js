@@ -94,7 +94,7 @@ export function buildCityGeoJSONFromCache(positionsMap, cityIndex) {
     features.push({
       type: "Feature",
       geometry: { type: "Point", coordinates: coords },
-      properties: { name: city.name },
+      properties: { id: city.id, name: city.name },
     })
   }
   return { type: "FeatureCollection", features }
