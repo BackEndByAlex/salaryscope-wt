@@ -137,16 +137,25 @@ function SalaryRangeSlider({ dataMin, dataMax, lo, hi, onChange }) {
 
 // ── SalaryList ────────────────────────────────────────────────────────────────
 
+// Multi-select arrays: pass single value to API; 0 or 2+ → null (client filters)
+function singleOrNull(arr) {
+  return arr?.length === 1 ? arr[0] : null
+}
+
 export default function SalaryList({ countryId, cityId, filters = {} }) {
+  const expLevels = filters.experienceLevel ?? []
+  const workSettings = filters.workSetting ?? []
+  const empTypes = filters.employmentType ?? []
+
   const { data, loading, fetchMore } = useQuery(SALARY_LIST_QUERY, {
     variables: {
       countryId: countryId ?? null,
       cityId: cityId ?? null,
       offset: 0,
-      experienceLevel: filters.experienceLevel ?? null,
-      workSetting: filters.workSetting ?? null,
+      experienceLevel: singleOrNull(expLevels),
+      workSetting: singleOrNull(workSettings),
       workYear: filters.workYear ?? null,
-      employmentType: filters.employmentType ?? null,
+      employmentType: singleOrNull(empTypes),
       companySize: filters.companySize ?? null,
       companyId: filters.companyId ?? null,
     },
@@ -188,11 +197,22 @@ export default function SalaryList({ countryId, cityId, filters = {} }) {
   const visible = useMemo(
     () =>
       sorted.filter((r) => {
+        // Salary range
         const s = r.salaryInUsd
-        if (s == null) return lo === dataMin // only show nulls when slider is at bottom
-        return s >= lo && s <= hi
+        if (s == null) return lo === dataMin
+        if (s < lo || s > hi) return false
+
+        // Multi-select filters (only applied client-side when 2+ values selected)
+        if (expLevels.length > 1 && !expLevels.includes(r.experienceLevel))
+          return false
+        if (workSettings.length > 1 && !workSettings.includes(r.workSetting))
+          return false
+        if (empTypes.length > 1 && !empTypes.includes(r.employmentType))
+          return false
+
+        return true
       }),
-    [sorted, lo, hi, dataMin],
+    [sorted, lo, hi, dataMin, expLevels, workSettings, empTypes],
   )
 
   function loadMore() {

@@ -334,7 +334,7 @@ export default function DashboardFilterSidebar({
           <FilterRow
             key={value}
             label={label}
-            active={filters.experienceLevel === value}
+            active={filters.experienceLevel.includes(value)}
             onClick={() => onToggle("exp", value)}
           />
         ))}
@@ -345,7 +345,7 @@ export default function DashboardFilterSidebar({
           <FilterRow
             key={value}
             label={label}
-            active={filters.workSetting === value}
+            active={filters.workSetting.includes(value)}
             onClick={() => onToggle("setting", value)}
           />
         ))}
@@ -356,7 +356,7 @@ export default function DashboardFilterSidebar({
           <FilterRow
             key={value}
             label={label}
-            active={filters.employmentType === value}
+            active={filters.employmentType.includes(value)}
             onClick={() => onToggle("type", value)}
           />
         ))}
