@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import { useApolloClient } from "@apollo/client/react"
-import { GITHUB_LOGIN_MUTATION } from "../../graphql/mutation/auth.js"
+import { GITHUB_LOGIN_MUTATION, GOOGLE_LOGIN_MUTATION } from "../../graphql/mutation/auth.js"
 import { useAuth } from "./useAuth.js"
 
 export default function OAuthCallback() {
@@ -39,15 +39,19 @@ export default function OAuthCallback() {
       }
 
       const codeVerifier = sessionStorage.getItem("oauth_code_verifier")
+      const provider = savedState.split(".").pop()
       sessionStorage.removeItem("oauth_state")
       sessionStorage.removeItem("oauth_code_verifier")
 
+      const mutation = provider === "google" ? GOOGLE_LOGIN_MUTATION : GITHUB_LOGIN_MUTATION
+      const resultKey = provider === "google" ? "googleLogin" : "githubLogin"
+
       try {
         const { data } = await apolloClient.mutate({
-          mutation: GITHUB_LOGIN_MUTATION,
+          mutation,
           variables: { input: { code, codeVerifier } },
         })
-        setUser(data.githubLogin.user)
+        setUser(data[resultKey].user)
         navigate("/dashboard", { replace: true })
       } catch (err) {
         navigate(`/login?error=${encodeURIComponent(err.message)}`, { replace: true })

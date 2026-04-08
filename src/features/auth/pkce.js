@@ -30,7 +30,7 @@ export function generateState() {
 export async function redirectToGitHub() {
   const codeVerifier = generateCodeVerifier()
   const codeChallenge = await generateCodeChallenge(codeVerifier)
-  const state = generateState()
+  const state = `${generateState()}.github`
 
   sessionStorage.setItem("oauth_code_verifier", codeVerifier)
   sessionStorage.setItem("oauth_state", state)
@@ -45,4 +45,26 @@ export async function redirectToGitHub() {
   })
 
   window.location.href = `https://github.com/login/oauth/authorize?${params}`
+}
+
+export async function redirectToGoogle() {
+  const codeVerifier = generateCodeVerifier()
+  const codeChallenge = await generateCodeChallenge(codeVerifier)
+  const state = `${generateState()}.google`
+
+  sessionStorage.setItem("oauth_code_verifier", codeVerifier)
+  sessionStorage.setItem("oauth_state", state)
+
+  const params = new URLSearchParams({
+    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+    redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
+    response_type: "code",
+    scope: "openid email profile",
+    state,
+    code_challenge: codeChallenge,
+    code_challenge_method: "S256",
+    access_type: "online",
+  })
+
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params}`
 }

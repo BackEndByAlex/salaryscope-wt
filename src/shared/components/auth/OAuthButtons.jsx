@@ -1,6 +1,6 @@
 import GitHubIcon from "../icons/GitHubIcon.jsx"
 import GoogleIcon from "../icons/GoogleIcon.jsx"
-import { redirectToGitHub } from "../../../features/auth/pkce.js"
+import { redirectToGitHub, redirectToGoogle } from "../../../features/auth/pkce.js"
 
 export default function OAuthButtons() {
   return (
@@ -15,9 +15,8 @@ export default function OAuthButtons() {
         </button>
 
         <button
-          disabled
-          title="Google login coming soon"
-          className="w-full flex items-center justify-center gap-3 bg-surface-container border border-outline-variant/15 text-on-surface font-semibold text-sm py-3 px-4 rounded-sm opacity-40 cursor-not-allowed"
+          onClick={redirectToGoogle}
+          className="w-full flex items-center justify-center gap-3 bg-surface-container border border-outline-variant/15 text-on-surface font-semibold text-sm py-3 px-4 rounded-sm hover:bg-surface-container-high transition-colors active:scale-[0.98]"
         >
           <GoogleIcon className="w-4.5 h-4.5" />
           Connect with Google

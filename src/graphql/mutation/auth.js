@@ -28,6 +28,17 @@ export const LOGOUT_MUTATION = gql`
   }
 `
 
+export const GOOGLE_LOGIN_MUTATION = gql`
+  mutation GoogleLogin($input: GoogleLoginInput!) {
+    googleLogin(input: $input) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`
+
 export const GITHUB_LOGIN_MUTATION = gql`
   mutation GitHubLogin($input: GitHubLoginInput!) {
     githubLogin(input: $input) {
