@@ -3,11 +3,13 @@ import {
   COUNTRY_SIDEBAR_QUERY,
   CITY_SIDEBAR_QUERY,
 } from "../../graphql/queries/sidebar.js"
+import { useResizable } from "../../shared/hooks/useResizable.js"
 import SidebarStats from "../../shared/components/sidebar/SidebarStats.jsx"
 import SidebarSection from "../../shared/components/sidebar/SidebarSection.jsx"
 import SalaryList from "../../shared/components/sidebar/SalaryList.jsx"
 
 export default function DashboardSidebar({ country, city, onClose, filters = {} }) {
+  const { width, handlePointerDown } = useResizable({ defaultWidth: 288, min: 200, max: 520, direction: "left" })
   const isOpen = !!(country || city)
   const selected = city ?? country
   const isCity = !!city
@@ -27,11 +29,23 @@ export default function DashboardSidebar({ country, city, onClose, filters = {} 
 
   return (
     <div
-      className={`absolute top-0 right-0 bottom-0 w-72 flex flex-col
+      className={`absolute top-0 right-0 bottom-0 flex flex-col
                   bg-surface/90 backdrop-blur-md border-l border-outline-variant/20
                   z-10 overflow-y-auto scrollbar-hide transform transition-transform duration-300
                   ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+      style={{ width }}
     >
+      {/* Resize handle */}
+      <div
+        onPointerDown={handlePointerDown}
+        className="absolute top-0 left-0 bottom-0 w-1.5 z-10 group"
+        style={{ cursor: "col-resize" }}
+      >
+        <div
+          className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+          style={{ background: "rgba(37,99,235,0.6)" }}
+        />
+      </div>
       {/* Header */}
       <div className="flex items-start justify-between px-5 py-4 border-b border-outline-variant/15 shrink-0">
         <div>

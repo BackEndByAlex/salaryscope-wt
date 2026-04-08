@@ -1,6 +1,7 @@
 import { useState, useId } from "react"
 import { useQuery } from "@apollo/client/react"
 import { COMPANIES_FILTER_QUERY } from "../../graphql/queries/companies.js"
+import { useResizable } from "../../shared/hooks/useResizable.js"
 
 // Values match what is actually stored in the DB (raw CSV strings)
 const EXPERIENCE_OPTIONS = [
@@ -202,14 +203,28 @@ function CompanyFilter({ selectedId, countryId, onToggle }) {
 // ── Main sidebar ──────────────────────────────────────────────────────────────
 
 export default function DashboardFilterSidebar({ filters, activeCount, onToggle, onClear, selectedCountryId }) {
+  const { width, handlePointerDown } = useResizable({ defaultWidth: 224, min: 140, max: 420, direction: "right" })
+
   return (
     <aside
-      className="w-56 shrink-0 flex flex-col filter-scrollbar"
+      className="shrink-0 flex flex-col filter-scrollbar relative"
       style={{
+        width,
         background: "#1a1d23",
         borderRight: "1px solid rgba(255,255,255,0.06)",
       }}
     >
+      {/* Resize handle */}
+      <div
+        onPointerDown={handlePointerDown}
+        className="absolute top-0 right-0 bottom-0 w-1.5 z-10 group"
+        style={{ cursor: "col-resize" }}
+      >
+        <div
+          className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+          style={{ background: "rgba(37,99,235,0.6)" }}
+        />
+      </div>
       {/* ── Sticky header ── */}
       <div
         className="flex items-center justify-between px-3 py-3 shrink-0"
