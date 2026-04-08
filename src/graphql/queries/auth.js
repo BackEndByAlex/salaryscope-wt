@@ -6,6 +6,8 @@ export const ME_QUERY = gql`
       id
       email
       createdAt
+      githubConnected
+      googleConnected
     }
   }
 `

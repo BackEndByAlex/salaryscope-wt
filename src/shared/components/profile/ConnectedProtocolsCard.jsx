@@ -27,7 +27,7 @@ function ProtocolRow({ icon, title, subtitle, connected }) {
   )
 }
 
-export default function ConnectedProtocolsCard() {
+export default function ConnectedProtocolsCard({ user, loading }) {
   return (
     <div className="bg-surface-container p-6">
       <p className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mb-2">
@@ -39,13 +39,13 @@ export default function ConnectedProtocolsCard() {
           icon={<GitHubIcon className="h-5 w-5 text-on-surface-variant" />}
           title="GitHub"
           subtitle="oauth2 · pkce"
-          connected
+          connected={loading ? false : (user?.githubConnected ?? false)}
         />
         <ProtocolRow
           icon={<GoogleIcon className="h-5 w-5" />}
           title="Google"
           subtitle="oauth2 · pkce"
-          connected={false}
+          connected={loading ? false : (user?.googleConnected ?? false)}
         />
       </div>
     </div>

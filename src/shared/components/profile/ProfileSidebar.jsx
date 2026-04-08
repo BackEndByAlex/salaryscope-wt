@@ -1,4 +1,5 @@
 import GitHubIcon from "../icons/GitHubIcon.jsx"
+import GoogleIcon from "../icons/GoogleIcon.jsx"
 
 function avatarLetter(email) {
   return email ? email[0].toUpperCase() : "?"
@@ -42,12 +43,29 @@ export default function ProfileSidebar({ user, loading }) {
           </p>
         </div>
 
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container border border-outline-variant/15 rounded-sm">
-          <GitHubIcon className="h-3 w-3 text-on-surface-variant" />
-          <span className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant">
-            GitHub
-          </span>
-        </div>
+        {user?.githubConnected && (
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container border border-outline-variant/15 rounded-sm">
+            <GitHubIcon className="h-3 w-3 text-on-surface-variant" />
+            <span className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant">
+              GitHub
+            </span>
+          </div>
+        )}
+        {user?.googleConnected && (
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container border border-outline-variant/15 rounded-sm">
+            <GoogleIcon className="h-3 w-3" />
+            <span className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant">
+              Google
+            </span>
+          </div>
+        )}
+        {!loading && !user?.githubConnected && !user?.googleConnected && (
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container border border-outline-variant/15 rounded-sm">
+            <span className="text-[0.6875rem] uppercase tracking-widest text-on-surface-variant">
+              Email
+            </span>
+          </div>
+        )}
 
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />

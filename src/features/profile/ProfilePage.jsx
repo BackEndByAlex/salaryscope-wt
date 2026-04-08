@@ -26,7 +26,7 @@ export default function ProfilePage() {
 
         <div className="flex-1 space-y-6 min-w-0">
           <IdentityNodeCard user={user} loading={loading} />
-          <ConnectedProtocolsCard />
+          <ConnectedProtocolsCard user={user} loading={loading} />
           <UserRecords />
         </div>
       </main>
