@@ -7,7 +7,7 @@ import SidebarStats from "../../shared/components/sidebar/SidebarStats.jsx"
 import SidebarSection from "../../shared/components/sidebar/SidebarSection.jsx"
 import SalaryList from "../../shared/components/sidebar/SalaryList.jsx"
 
-export default function DashboardSidebar({ country, city, onClose }) {
+export default function DashboardSidebar({ country, city, onClose, filters = {} }) {
   const isOpen = !!(country || city)
   const selected = city ?? country
   const isCity = !!city
@@ -27,9 +27,9 @@ export default function DashboardSidebar({ country, city, onClose }) {
 
   return (
     <div
-      className={`absolute top-16 right-0 bottom-0 w-72 flex flex-col
+      className={`absolute top-0 right-0 bottom-0 w-72 flex flex-col
                   bg-surface/90 backdrop-blur-md border-l border-outline-variant/20
-                  z-10 overflow-y-auto transform transition-transform duration-300
+                  z-10 overflow-y-auto scrollbar-hide transform transition-transform duration-300
                   ${isOpen ? "translate-x-0" : "translate-x-full"}`}
     >
       {/* Header */}
@@ -60,6 +60,7 @@ export default function DashboardSidebar({ country, city, onClose }) {
           <SalaryList
             countryId={!isCity ? country?.id : null}
             cityId={isCity ? city?.id : null}
+            filters={filters}
           />
         </SidebarSection>
       )}

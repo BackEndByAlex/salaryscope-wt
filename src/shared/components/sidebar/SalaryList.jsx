@@ -2,9 +2,19 @@ import { useQuery } from "@apollo/client/react"
 import { SALARY_LIST_QUERY } from "../../../graphql/queries/sidebar.js"
 import SalaryRow from "./SalaryRow.jsx"
 
-export default function SalaryList({ countryId, cityId }) {
+export default function SalaryList({ countryId, cityId, filters = {} }) {
   const { data, loading, fetchMore } = useQuery(SALARY_LIST_QUERY, {
-    variables: { countryId: countryId ?? null, cityId: cityId ?? null, offset: 0 },
+    variables: {
+      countryId:       countryId ?? null,
+      cityId:          cityId ?? null,
+      offset:          0,
+      experienceLevel: filters.experienceLevel ?? null,
+      workSetting:     filters.workSetting ?? null,
+      workYear:        filters.workYear ?? null,
+      employmentType:  filters.employmentType ?? null,
+      companySize:     filters.companySize ?? null,
+      companyId:       filters.companyId ?? null,
+    },
   })
 
   const records = data?.salaryRecords?.records ?? []

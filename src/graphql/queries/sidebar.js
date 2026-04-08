@@ -88,11 +88,27 @@ export const CITY_SIDEBAR_QUERY = gql`
 
 // Paginated salary records list — pass either countryId or cityId, leave the other null
 export const SALARY_LIST_QUERY = gql`
-  query SalaryList($countryId: ID, $cityId: ID, $offset: Int) {
+  query SalaryList(
+    $countryId: ID
+    $cityId: ID
+    $offset: Int
+    $experienceLevel: String
+    $workSetting: String
+    $workYear: Int
+    $employmentType: String
+    $companySize: String
+    $companyId: ID
+  ) {
     salaryRecords(
       filters: {
         countryId: $countryId
         cityId: $cityId
+        experienceLevel: $experienceLevel
+        workSetting: $workSetting
+        workYear: $workYear
+        employmentType: $employmentType
+        companySize: $companySize
+        companyId: $companyId
         limit: 10
         offset: $offset
       }
@@ -105,9 +121,9 @@ export const SALARY_LIST_QUERY = gql`
         experienceLevel
         workSetting
         workYear
-        job {
-          title
-        }
+        employmentType
+        job { title }
+        company { name }
       }
     }
   }

@@ -1,9 +1,15 @@
-const EXPERIENCE_LABELS = { EN: "Entry", MI: "Mid", SE: "Senior", EX: "Executive" }
+// Handles both raw CSV strings ("Entry-level") and normalised codes ("EN")
+const EXPERIENCE_LABELS = {
+  EN: "Entry", "Entry-level": "Entry",
+  MI: "Mid",   "Mid-level":   "Mid",
+  SE: "Senior", Senior:       "Senior",
+  EX: "Executive", Executive: "Executive",
+}
 const EXPERIENCE_COLORS = {
-  EN: "#81ecff66",
-  MI: "#81ecffaa",
-  SE: "#81ecff",
-  EX: "#d277ff",
+  EN: "#81ecff66", "Entry-level": "#81ecff66",
+  MI: "#81ecffaa", "Mid-level":   "#81ecffaa",
+  SE: "#81ecff",    Senior:        "#81ecff",
+  EX: "#d277ff",    Executive:     "#d277ff",
 }
 
 function formatSalary(usd) {

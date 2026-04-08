@@ -58,6 +58,30 @@ body {
   backdrop-filter: blur(24px);
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2563eb transparent;
+}
+.filter-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.filter-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.filter-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2563eb;
+  border-radius: 9999px;
+}
+
 @keyframes pulse-ring {
   0% {
     transform: scale(1);
