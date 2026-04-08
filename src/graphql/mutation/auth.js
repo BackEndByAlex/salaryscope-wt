@@ -27,3 +27,14 @@ export const LOGOUT_MUTATION = gql`
     logout
   }
 `
+
+export const GITHUB_LOGIN_MUTATION = gql`
+  mutation GitHubLogin($input: GitHubLoginInput!) {
+    githubLogin(input: $input) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`

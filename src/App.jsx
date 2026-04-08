@@ -8,6 +8,7 @@ import Register from "./pages/Register.jsx"
 import Profile from "./pages/Profile.jsx"
 import Dashboard from "./pages/Dashboard.jsx"
 import Analytics from "./pages/Analytics.jsx"
+import OAuthCallback from "./features/auth/OAuthCallback.jsx"
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/auth/callback" element={<OAuthCallback />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
