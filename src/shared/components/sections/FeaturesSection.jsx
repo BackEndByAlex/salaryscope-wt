@@ -3,21 +3,37 @@ import { useQuery } from "@apollo/client/react"
 import { FEATURES_QUERY } from "../../../graphql/queries/home.js"
 
 const BAR_COLORS = [
-  { bar: "bg-primary",      text: "text-primary" },
-  { bar: "bg-secondary",    text: "text-secondary" },
-  { bar: "bg-primary",      text: "text-primary" },
-  { bar: "bg-primary/70",   text: "text-primary/70" },
+  { bar: "bg-primary", text: "text-primary" },
+  { bar: "bg-secondary", text: "text-secondary" },
+  { bar: "bg-primary", text: "text-primary" },
+  { bar: "bg-primary/70", text: "text-primary/70" },
   { bar: "bg-secondary/70", text: "text-secondary/70" },
-  { bar: "bg-primary/50",   text: "text-primary/50" },
+  { bar: "bg-primary/50", text: "text-primary/50" },
 ]
 
 const SCROLL_COLORS = ["text-primary", "text-secondary", "text-on-surface"]
 
 const FILTER_PILLS = [
-  { label: "Role",       value: "Software Engineer", color: "text-primary border-primary/30" },
-  { label: "Country",    value: "Germany",           color: "text-secondary border-secondary/30" },
-  { label: "Experience", value: "Senior",            color: "text-on-surface border-outline-variant/40" },
-  { label: "Currency",   value: "USD",               color: "text-on-surface border-outline-variant/40" },
+  {
+    label: "Role",
+    value: "Software Engineer",
+    color: "text-primary border-primary/30",
+  },
+  {
+    label: "Country",
+    value: "Germany",
+    color: "text-secondary border-secondary/30",
+  },
+  {
+    label: "Experience",
+    value: "Senior",
+    color: "text-on-surface border-outline-variant/40",
+  },
+  {
+    label: "Currency",
+    value: "USD",
+    color: "text-on-surface border-outline-variant/40",
+  },
 ]
 
 function fmtCount(n) {
@@ -57,7 +73,8 @@ function TopographyCard({ countries }) {
 
         <div className="space-y-3 mt-4">
           {sorted.map(({ name, employeeRecordCount }, i) => {
-            const { bar, text } = BAR_COLORS[i] ?? BAR_COLORS[BAR_COLORS.length - 1]
+            const { bar, text } =
+              BAR_COLORS[i] ?? BAR_COLORS[BAR_COLORS.length - 1]
             return (
               <div key={name} className="flex items-center gap-3 group/row">
                 <div className="w-32 text-xs text-on-surface-variant font-medium truncate shrink-0">
@@ -69,7 +86,9 @@ function TopographyCard({ countries }) {
                     style={{ width: `${(employeeRecordCount / max) * 100}%` }}
                   />
                 </div>
-                <div className={`text-xs font-bold tabular-nums w-12 text-right ${text}`}>
+                <div
+                  className={`text-xs font-bold tabular-nums w-12 text-right ${text}`}
+                >
                   {fmtCount(employeeRecordCount)}
                 </div>
               </div>
@@ -79,7 +98,10 @@ function TopographyCard({ countries }) {
 
         <div className="flex justify-between mt-2 ml-35 mr-13">
           {["0", "20k", "40k", "60k", "80k+"].map((l) => (
-            <span key={l} className="text-[0.5625rem] text-on-surface-variant/40 font-medium">
+            <span
+              key={l}
+              className="text-[0.5625rem] text-on-surface-variant/40 font-medium"
+            >
               {l}
             </span>
           ))}
@@ -103,7 +125,9 @@ function FiltersCard() {
     <div className="bg-surface-container p-8 flex flex-col justify-between border-l-2 border-secondary overflow-hidden relative">
       <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none" />
       <div className="space-y-4 relative z-10">
-        <span className="material-symbols-outlined text-secondary text-3xl">tune</span>
+        <span className="material-symbols-outlined text-secondary text-3xl">
+          tune
+        </span>
         <h3 className="text-xl font-bold">Atomic Filters</h3>
         <p className="text-on-surface-variant text-xs leading-relaxed">
           Slice by experience, stack, currency, and work-setting in real-time.
@@ -139,7 +163,9 @@ function TerminalCard({ records }) {
       <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none" />
 
       <div className="relative z-10 flex items-center gap-3 mb-4 shrink-0">
-        <span className="material-symbols-outlined text-primary text-2xl">terminal</span>
+        <span className="material-symbols-outlined text-primary text-2xl">
+          terminal
+        </span>
         <h3 className="text-xl font-bold">Direct Access</h3>
       </div>
 
@@ -163,7 +189,9 @@ function TerminalCard({ records }) {
                 className="flex items-center justify-between py-3 border-b border-outline-variant/10 hover:bg-surface-container-high px-1 transition-colors cursor-pointer group"
               >
                 <div className="flex flex-col min-w-0 gap-0.5">
-                  <span className={`font-semibold truncate ${color} group-hover:opacity-100 opacity-85`}>
+                  <span
+                    className={`font-semibold truncate ${color} group-hover:opacity-100 opacity-85`}
+                  >
                     {r.job.title}
                   </span>
                   <span className="text-on-surface-variant/50 text-[0.625rem]">
@@ -193,7 +221,7 @@ export default function FeaturesSection() {
   const { data, loading } = useQuery(FEATURES_QUERY)
 
   const countries = data?.countries?.countries ?? []
-  const records   = data?.salaryRecords?.records ?? []
+  const records = data?.salaryRecords?.records ?? []
 
   return (
     <section className="py-32 px-6">

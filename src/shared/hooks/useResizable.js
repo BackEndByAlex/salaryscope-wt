@@ -6,7 +6,12 @@ import { useState, useCallback } from "react"
  * direction: "right"  → dragging right grows the element (left sidebar)
  * direction: "left"   → dragging left grows the element (right sidebar)
  */
-export function useResizable({ defaultWidth, min = 140, max = 600, direction = "right" }) {
+export function useResizable({
+  defaultWidth,
+  min = 140,
+  max = 600,
+  direction = "right",
+}) {
   const [width, setWidth] = useState(defaultWidth)
 
   const handlePointerDown = useCallback(

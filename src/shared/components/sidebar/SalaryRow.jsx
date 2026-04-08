@@ -1,15 +1,23 @@
 // Handles both raw CSV strings ("Entry-level") and normalised codes ("EN")
 const EXPERIENCE_LABELS = {
-  EN: "Entry", "Entry-level": "Entry",
-  MI: "Mid",   "Mid-level":   "Mid",
-  SE: "Senior", Senior:       "Senior",
-  EX: "Executive", Executive: "Executive",
+  EN: "Entry",
+  "Entry-level": "Entry",
+  MI: "Mid",
+  "Mid-level": "Mid",
+  SE: "Senior",
+  Senior: "Senior",
+  EX: "Executive",
+  Executive: "Executive",
 }
 const EXPERIENCE_COLORS = {
-  EN: "#81ecff66", "Entry-level": "#81ecff66",
-  MI: "#81ecffaa", "Mid-level":   "#81ecffaa",
-  SE: "#81ecff",    Senior:        "#81ecff",
-  EX: "#d277ff",    Executive:     "#d277ff",
+  EN: "#81ecff66",
+  "Entry-level": "#81ecff66",
+  MI: "#81ecffaa",
+  "Mid-level": "#81ecffaa",
+  SE: "#81ecff",
+  Senior: "#81ecff",
+  EX: "#d277ff",
+  Executive: "#d277ff",
 }
 
 function formatSalary(usd) {
@@ -19,7 +27,8 @@ function formatSalary(usd) {
 }
 
 export default function SalaryRow({ record }) {
-  const expLabel = EXPERIENCE_LABELS[record.experienceLevel] ?? record.experienceLevel
+  const expLabel =
+    EXPERIENCE_LABELS[record.experienceLevel] ?? record.experienceLevel
   const expColor = EXPERIENCE_COLORS[record.experienceLevel] ?? "#ffffff44"
 
   return (

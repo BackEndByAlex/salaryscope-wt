@@ -8,8 +8,18 @@ import SidebarStats from "../../shared/components/sidebar/SidebarStats.jsx"
 import SidebarSection from "../../shared/components/sidebar/SidebarSection.jsx"
 import SalaryList from "../../shared/components/sidebar/SalaryList.jsx"
 
-export default function DashboardSidebar({ country, city, onClose, filters = {} }) {
-  const { width, handlePointerDown } = useResizable({ defaultWidth: 288, min: 200, max: 520, direction: "left" })
+export default function DashboardSidebar({
+  country,
+  city,
+  onClose,
+  filters = {},
+}) {
+  const { width, handlePointerDown } = useResizable({
+    defaultWidth: 288,
+    min: 200,
+    max: 520,
+    direction: "left",
+  })
   const isOpen = !!(country || city)
   const selected = city ?? country
   const isCity = !!city

@@ -6,21 +6,21 @@ import { useResizable } from "../../shared/hooks/useResizable.js"
 // Values match what is actually stored in the DB (raw CSV strings)
 const EXPERIENCE_OPTIONS = [
   { value: "Entry-level", label: "Entry" },
-  { value: "Mid-level",   label: "Mid" },
-  { value: "Senior",      label: "Senior" },
-  { value: "Executive",   label: "Executive" },
+  { value: "Mid-level", label: "Mid" },
+  { value: "Senior", label: "Senior" },
+  { value: "Executive", label: "Executive" },
 ]
 
 const WORK_SETTING_OPTIONS = [
-  { value: "Remote",    label: "Remote" },
-  { value: "Hybrid",    label: "Hybrid" },
+  { value: "Remote", label: "Remote" },
+  { value: "Hybrid", label: "Hybrid" },
   { value: "In-person", label: "In-person" },
 ]
 
 const EMPLOYMENT_TYPE_OPTIONS = [
   { value: "Full-time", label: "Full-time" },
   { value: "Part-time", label: "Part-time" },
-  { value: "Contract",  label: "Contract" },
+  { value: "Contract", label: "Contract" },
   { value: "Freelance", label: "Freelance" },
 ]
 
@@ -54,13 +54,22 @@ function FilterRow({ label, active, onClick }) {
       >
         {active && (
           <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
-            <path d="M1 3.5L3.5 6L8 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M1 3.5L3.5 6L8 1"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </span>
       <span
         className="text-xs transition-colors"
-        style={{ color: active ? "#ffffff" : "rgba(173,170,170,0.8)", fontWeight: active ? 500 : 400 }}
+        style={{
+          color: active ? "#ffffff" : "rgba(173,170,170,0.8)",
+          fontWeight: active ? 500 : 400,
+        }}
       >
         {label}
       </span>
@@ -77,7 +86,9 @@ function CompactChip({ label, active, onClick }) {
       className="px-2.5 py-1 text-xs rounded-sm transition-colors"
       style={{
         background: active ? "#2563eb" : "transparent",
-        border: active ? "1px solid transparent" : "1px solid rgba(255,255,255,0.1)",
+        border: active
+          ? "1px solid transparent"
+          : "1px solid rgba(255,255,255,0.1)",
         color: active ? "#ffffff" : "rgba(173,170,170,0.8)",
         fontWeight: active ? 700 : 400,
       }}
@@ -175,12 +186,21 @@ function CompanyFilter({ selectedId, countryId, onToggle }) {
               opacity: countryId ? 1 : 0.4,
               cursor: countryId ? "text" : "not-allowed",
             }}
-            onFocus={(e) => { e.target.style.borderColor = "rgba(37,99,235,0.5)" }}
-            onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.08)" }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "rgba(37,99,235,0.5)"
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "rgba(255,255,255,0.08)"
+            }}
           />
         </div>
         {loading && (
-          <p className="text-xs py-2" style={{ color: "rgba(173,170,170,0.4)" }}>Loading…</p>
+          <p
+            className="text-xs py-2"
+            style={{ color: "rgba(173,170,170,0.4)" }}
+          >
+            Loading…
+          </p>
         )}
         <div className="space-y-0.5">
           {filtered.map((c) => (
@@ -192,7 +212,12 @@ function CompanyFilter({ selectedId, countryId, onToggle }) {
             />
           ))}
           {!loading && countryId && filtered.length === 0 && (
-            <p className="text-xs py-2" style={{ color: "rgba(173,170,170,0.4)" }}>No results.</p>
+            <p
+              className="text-xs py-2"
+              style={{ color: "rgba(173,170,170,0.4)" }}
+            >
+              No results.
+            </p>
           )}
         </div>
       </div>
@@ -202,8 +227,19 @@ function CompanyFilter({ selectedId, countryId, onToggle }) {
 
 // ── Main sidebar ──────────────────────────────────────────────────────────────
 
-export default function DashboardFilterSidebar({ filters, activeCount, onToggle, onClear, selectedCountryId }) {
-  const { width, handlePointerDown } = useResizable({ defaultWidth: 224, min: 140, max: 420, direction: "right" })
+export default function DashboardFilterSidebar({
+  filters,
+  activeCount,
+  onToggle,
+  onClear,
+  selectedCountryId,
+}) {
+  const { width, handlePointerDown } = useResizable({
+    defaultWidth: 224,
+    min: 140,
+    max: 420,
+    direction: "right",
+  })
 
   return (
     <aside
@@ -231,7 +267,10 @@ export default function DashboardFilterSidebar({ filters, activeCount, onToggle,
         style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-base" style={{ color: "rgba(173,170,170,0.7)" }}>
+          <span
+            className="material-symbols-outlined text-base"
+            style={{ color: "rgba(173,170,170,0.7)" }}
+          >
             tune
           </span>
           <span className="text-sm font-bold text-white">Filters</span>
@@ -249,8 +288,12 @@ export default function DashboardFilterSidebar({ filters, activeCount, onToggle,
             onClick={onClear}
             className="text-[0.6875rem] transition-colors"
             style={{ color: "rgba(173,170,170,0.6)" }}
-            onMouseEnter={(e) => { e.target.style.color = "#ffffff" }}
-            onMouseLeave={(e) => { e.target.style.color = "rgba(173,170,170,0.6)" }}
+            onMouseEnter={(e) => {
+              e.target.style.color = "#ffffff"
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = "rgba(173,170,170,0.6)"
+            }}
           >
             Clear
           </button>

@@ -1,6 +1,9 @@
 import GitHubIcon from "../icons/GitHubIcon.jsx"
 import GoogleIcon from "../icons/GoogleIcon.jsx"
-import { redirectToGitHub, redirectToGoogle } from "../../../features/auth/pkce.js"
+import {
+  redirectToGitHub,
+  redirectToGoogle,
+} from "../../../features/auth/pkce.js"
 
 export default function OAuthButtons() {
   return (

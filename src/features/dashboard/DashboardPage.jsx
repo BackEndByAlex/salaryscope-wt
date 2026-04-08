@@ -15,20 +15,24 @@ export default function DashboardPage() {
     handleIdle,
   } = useGlobeData()
 
-  const { filters, activeCount, toggle, clear, clearFilter } = useDashboardFilters()
+  const { filters, activeCount, toggle, clear, clearFilter } =
+    useDashboardFilters()
 
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedCity, setSelectedCity] = useState(null)
 
-  const handleCountryClick = useCallback((properties) => {
-    setSelectedCountry((prev) => {
-      if (prev?.id !== properties.id && filters.companyId) {
-        clearFilter("company")
-      }
-      return properties
-    })
-    setSelectedCity(null)
-  }, [filters.companyId, clearFilter])
+  const handleCountryClick = useCallback(
+    (properties) => {
+      setSelectedCountry((prev) => {
+        if (prev?.id !== properties.id && filters.companyId) {
+          clearFilter("company")
+        }
+        return properties
+      })
+      setSelectedCity(null)
+    },
+    [filters.companyId, clearFilter],
+  )
 
   const handleCityClick = useCallback((properties) => {
     setSelectedCity(properties)

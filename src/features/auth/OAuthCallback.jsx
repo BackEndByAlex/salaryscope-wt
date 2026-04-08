@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import { useApolloClient } from "@apollo/client/react"
-import { GITHUB_LOGIN_MUTATION, GOOGLE_LOGIN_MUTATION } from "../../graphql/mutation/auth.js"
+import {
+  GITHUB_LOGIN_MUTATION,
+  GOOGLE_LOGIN_MUTATION,
+} from "../../graphql/mutation/auth.js"
 import { useAuth } from "./useAuth.js"
 
 export default function OAuthCallback() {
@@ -43,7 +46,8 @@ export default function OAuthCallback() {
       sessionStorage.removeItem("oauth_state")
       sessionStorage.removeItem("oauth_code_verifier")
 
-      const mutation = provider === "google" ? GOOGLE_LOGIN_MUTATION : GITHUB_LOGIN_MUTATION
+      const mutation =
+        provider === "google" ? GOOGLE_LOGIN_MUTATION : GITHUB_LOGIN_MUTATION
       const resultKey = provider === "google" ? "googleLogin" : "githubLogin"
 
       try {
@@ -54,7 +58,9 @@ export default function OAuthCallback() {
         setUser(data[resultKey].user)
         navigate("/dashboard", { replace: true })
       } catch (err) {
-        navigate(`/login?error=${encodeURIComponent(err.message)}`, { replace: true })
+        navigate(`/login?error=${encodeURIComponent(err.message)}`, {
+          replace: true,
+        })
       }
     }
 
@@ -65,7 +71,9 @@ export default function OAuthCallback() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center space-y-3">
         <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm text-on-surface-variant">Authenticating with GitHub…</p>
+        <p className="text-sm text-on-surface-variant">
+          Authenticating with GitHub…
+        </p>
       </div>
     </div>
   )

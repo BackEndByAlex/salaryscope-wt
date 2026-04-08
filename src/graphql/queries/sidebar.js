@@ -122,8 +122,12 @@ export const SALARY_LIST_QUERY = gql`
         workSetting
         workYear
         employmentType
-        job { title }
-        company { name }
+        job {
+          title
+        }
+        company {
+          name
+        }
       }
     }
   }
