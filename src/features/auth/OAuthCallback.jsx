@@ -34,17 +34,20 @@ export default function OAuthCallback() {
         return
       }
 
-      // CSRF check — state must match what we stored before the redirect
-      const savedState = sessionStorage.getItem("oauth_state")
-      if (state !== savedState) {
-        navigate("/login?error=state_mismatch", { replace: true })
+      const codeVerifier = sessionStorage.getItem("oauth_code_verifier")
+      const provider = sessionStorage.getItem("oauth_provider")
+      sessionStorage.removeItem("oauth_code_verifier")
+      sessionStorage.removeItem("oauth_provider")
+
+      // Guard against callbacks that arrive without a prior begin flow
+      if (!codeVerifier || !provider) {
+        navigate("/login?error=missing_oauth_session", { replace: true })
         return
       }
 
-      const codeVerifier = sessionStorage.getItem("oauth_code_verifier")
-      const provider = savedState.split(".").pop()
-      sessionStorage.removeItem("oauth_state")
-      sessionStorage.removeItem("oauth_code_verifier")
+      // CSRF state verification is handled server-side: the backend's beginGoogleLogin /
+      // beginGithubLogin mutation set a signed HttpOnly cookie, and googleLogin / githubLogin
+      // verify the returned state against that cookie before exchanging the code.
 
       const mutation =
         provider === "google" ? GOOGLE_LOGIN_MUTATION : GITHUB_LOGIN_MUTATION

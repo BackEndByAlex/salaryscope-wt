@@ -40,6 +40,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          {/* Public by design — salary data is browsable without an account */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/auth/callback" element={<OAuthCallback />} />
