@@ -2,37 +2,74 @@ import { useState, useId } from "react"
 import { useQuery } from "@apollo/client/react"
 import { COMPANIES_FILTER_QUERY } from "../../graphql/queries/companies.js"
 import { useResizable } from "../../shared/hooks/useResizable.js"
+import { useFilterOptions } from "../../shared/hooks/useFilterOptions.js"
 
-// Values match what is actually stored in the DB (raw CSV strings)
-const EXPERIENCE_OPTIONS = [
-  { value: "Entry-level", label: "Entry" },
-  { value: "Mid-level", label: "Mid" },
-  { value: "Senior", label: "Senior" },
-  { value: "Executive", label: "Executive" },
-]
+// Display label maps — handle both raw CSV strings and short codes from different datasets
+const EXP_LABELS = {
+  EN: "Entry",
+  "Entry-level": "Entry",
+  MI: "Mid",
+  "Mid-level": "Mid",
+  SE: "Senior",
+  Senior: "Senior",
+  EX: "Executive",
+  Executive: "Executive",
+}
 
-const WORK_SETTING_OPTIONS = [
-  { value: "Remote", label: "Remote" },
-  { value: "Hybrid", label: "Hybrid" },
-  { value: "In-person", label: "In-person" },
-]
+const SETTING_LABELS = {
+  Remote: "Remote",
+  Hybrid: "Hybrid",
+  "In-person": "In-person",
+}
 
-const EMPLOYMENT_TYPE_OPTIONS = [
-  { value: "Full-time", label: "Full-time" },
-  { value: "Part-time", label: "Part-time" },
-  { value: "Contract", label: "Contract" },
-  { value: "Freelance", label: "Freelance" },
-]
+const TYPE_LABELS = {
+  FT: "Full-time",
+  "Full-time": "Full-time",
+  PT: "Part-time",
+  "Part-time": "Part-time",
+  CT: "Contract",
+  Contract: "Contract",
+  FL: "Freelance",
+  Freelance: "Freelance",
+}
 
-const COMPANY_SIZE_OPTIONS = [
-  { value: "S", label: "S" },
-  { value: "M", label: "M" },
-  { value: "L", label: "L" },
-]
+const SIZE_LABELS = {
+  S: "S",
+  M: "M",
+  L: "L",
+}
 
-const YEARS = [2020, 2021, 2022, 2023, 2024]
+// Deduplicate values that map to the same display label (DB has EN + Entry-level, FT + Full-time, etc.)
+function dedupeByLabel(values, labelMap) {
+  const seen = new Set()
+  return values.filter((v) => {
+    const label = labelMap[v] ?? v
+    if (seen.has(label)) return false
+    seen.add(label)
+    return true
+  })
+}
 
-// ── Checkbox row — used for text-heavy options ────────────────────────────────
+// ── Skeleton rows — shown while filter options are loading ────────────────────
+
+function OptionsSkeleton({ rows = 3 }) {
+  return (
+    <div className="px-3 py-1 space-y-2">
+      {Array.from({ length: rows }).map((_, i) => (
+        <div
+          key={i}
+          className="h-3 rounded-sm animate-pulse"
+          style={{
+            width: `${55 + (i % 3) * 15}%`,
+            background: "rgba(255,255,255,0.06)",
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// ── Checkbox row ──────────────────────────────────────────────────────────────
 
 function FilterRow({ label, active, onClick }) {
   return (
@@ -44,7 +81,6 @@ function FilterRow({ label, active, onClick }) {
         borderLeft: active ? "2px solid #2563eb" : "2px solid transparent",
       }}
     >
-      {/* Custom checkbox */}
       <span
         className="shrink-0 w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors"
         style={{
@@ -77,7 +113,7 @@ function FilterRow({ label, active, onClick }) {
   )
 }
 
-// ── Compact chip — used for short-label options (year, company size) ──────────
+// ── Compact chip ──────────────────────────────────────────────────────────────
 
 function CompactChip({ label, active, onClick }) {
   return (
@@ -106,7 +142,6 @@ function CollapsibleSection({ label, children, defaultOpen = true }) {
 
   return (
     <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-      {/* Header */}
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
@@ -131,7 +166,6 @@ function CollapsibleSection({ label, children, defaultOpen = true }) {
         </span>
       </button>
 
-      {/* Body — max-height transition for smooth open/close */}
       <div
         id={regionId}
         style={{
@@ -158,7 +192,6 @@ function CompanyFilter({ selectedId, countryId, onToggle }) {
   const filtered = companies.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase()),
   )
-
   const placeholder = countryId ? "Search company…" : "Select a country first"
 
   return (
@@ -233,12 +266,17 @@ export default function DashboardFilterSidebar({
   onToggle,
   onClear,
   selectedCountryId,
+  selectedCityId,
 }) {
   const { width, handlePointerDown } = useResizable({
     defaultWidth: 224,
     min: 140,
     max: 420,
     direction: "right",
+  })
+  const { options, loading } = useFilterOptions({
+    countryId: selectedCountryId,
+    cityId: selectedCityId,
   })
 
   return (
@@ -261,7 +299,8 @@ export default function DashboardFilterSidebar({
           style={{ background: "rgba(37,99,235,0.6)" }}
         />
       </div>
-      {/* ── Sticky header ── */}
+
+      {/* ── Header ── */}
       <div
         className="flex items-center justify-between px-3 py-3 shrink-0"
         style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
@@ -300,7 +339,7 @@ export default function DashboardFilterSidebar({
         )}
       </div>
 
-      {/* ── Global search placeholder ── */}
+      {/* ── Search placeholder ── */}
       <div
         className="px-3 py-3"
         style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
@@ -328,63 +367,83 @@ export default function DashboardFilterSidebar({
         </div>
       </div>
 
-      {/* ── Filter sections ── */}
+      {/* ── Dynamic filter sections ── */}
       <CollapsibleSection label="Experience Level">
-        {EXPERIENCE_OPTIONS.map(({ value, label }) => (
-          <FilterRow
-            key={value}
-            label={label}
-            active={filters.experienceLevel.includes(value)}
-            onClick={() => onToggle("exp", value)}
-          />
-        ))}
+        {loading ? (
+          <OptionsSkeleton rows={4} />
+        ) : (
+          dedupeByLabel(options.experienceLevels, EXP_LABELS).map((value) => (
+            <FilterRow
+              key={value}
+              label={EXP_LABELS[value] ?? value}
+              active={filters.experienceLevel.includes(value)}
+              onClick={() => onToggle("exp", value)}
+            />
+          ))
+        )}
       </CollapsibleSection>
 
       <CollapsibleSection label="Work Setting">
-        {WORK_SETTING_OPTIONS.map(({ value, label }) => (
-          <FilterRow
-            key={value}
-            label={label}
-            active={filters.workSetting.includes(value)}
-            onClick={() => onToggle("setting", value)}
-          />
-        ))}
+        {loading ? (
+          <OptionsSkeleton rows={3} />
+        ) : (
+          dedupeByLabel(options.workSettings, SETTING_LABELS).map((value) => (
+            <FilterRow
+              key={value}
+              label={SETTING_LABELS[value] ?? value}
+              active={filters.workSetting.includes(value)}
+              onClick={() => onToggle("setting", value)}
+            />
+          ))
+        )}
       </CollapsibleSection>
 
       <CollapsibleSection label="Employment Type">
-        {EMPLOYMENT_TYPE_OPTIONS.map(({ value, label }) => (
-          <FilterRow
-            key={value}
-            label={label}
-            active={filters.employmentType.includes(value)}
-            onClick={() => onToggle("type", value)}
-          />
-        ))}
+        {loading ? (
+          <OptionsSkeleton rows={4} />
+        ) : (
+          dedupeByLabel(options.employmentTypes, TYPE_LABELS).map((value) => (
+            <FilterRow
+              key={value}
+              label={TYPE_LABELS[value] ?? value}
+              active={filters.employmentType.includes(value)}
+              onClick={() => onToggle("type", value)}
+            />
+          ))
+        )}
       </CollapsibleSection>
 
       <CollapsibleSection label="Company Size">
         <div className="px-3 pt-1 pb-2 flex flex-wrap gap-1.5">
-          {COMPANY_SIZE_OPTIONS.map(({ value, label }) => (
-            <CompactChip
-              key={value}
-              label={label}
-              active={filters.companySize === value}
-              onClick={() => onToggle("size", value)}
-            />
-          ))}
+          {loading ? (
+            <OptionsSkeleton rows={1} />
+          ) : (
+            options.companySizes.filter((v) => v === "S" || v === "M" || v === "L").map((value) => (
+              <CompactChip
+                key={value}
+                label={SIZE_LABELS[value] ?? value}
+                active={filters.companySize === value}
+                onClick={() => onToggle("size", value)}
+              />
+            ))
+          )}
         </div>
       </CollapsibleSection>
 
       <CollapsibleSection label="Year">
         <div className="px-3 pt-1 pb-2 flex flex-wrap gap-1.5">
-          {YEARS.map((year) => (
-            <CompactChip
-              key={year}
-              label={String(year)}
-              active={filters.workYear === year}
-              onClick={() => onToggle("year", String(year))}
-            />
-          ))}
+          {loading ? (
+            <OptionsSkeleton rows={1} />
+          ) : (
+            options.workYears.map((year) => (
+              <CompactChip
+                key={year}
+                label={String(year)}
+                active={filters.workYear === year}
+                onClick={() => onToggle("year", String(year))}
+              />
+            ))
+          )}
         </div>
       </CollapsibleSection>
 

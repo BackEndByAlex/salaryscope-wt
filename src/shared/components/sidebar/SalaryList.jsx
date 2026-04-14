@@ -199,7 +199,7 @@ export default function SalaryList({ countryId, cityId, filters = {} }) {
       sorted.filter((r) => {
         // Salary range
         const s = r.salaryInUsd
-        if (s == null) return lo === dataMin
+        if (s == null) return true
         if (s < lo || s > hi) return false
 
         // Multi-select filters (only applied client-side when 2+ values selected)

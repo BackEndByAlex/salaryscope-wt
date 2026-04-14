@@ -55,6 +55,7 @@ export default function DashboardPage() {
           onToggle={toggle}
           onClear={clear}
           selectedCountryId={selectedCountry?.id ?? null}
+          selectedCityId={selectedCity?.id ?? null}
         />
 
         {/* Center — globe, right sidebar overlays on top */}
