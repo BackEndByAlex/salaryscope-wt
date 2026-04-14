@@ -53,7 +53,7 @@ export default function OAuthCallback() {
       try {
         const { data } = await apolloClient.mutate({
           mutation,
-          variables: { input: { code, codeVerifier } },
+          variables: { input: { code, codeVerifier, state } },
         })
         setUser(data[resultKey].user)
         navigate("/dashboard", { replace: true })
