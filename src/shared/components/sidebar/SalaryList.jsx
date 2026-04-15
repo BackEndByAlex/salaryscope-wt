@@ -164,23 +164,29 @@ export default function SalaryList({ countryId, cityId, filters = {} }) {
   const records = data?.salaryRecords?.records ?? []
   const hasNextPage = data?.salaryRecords?.hasNextPage
 
-  // Sort highest → lowest (nulls last)
+  // Sort highest → lowest — prefer USD value, fall back to raw salary
   const sorted = useMemo(
     () =>
       [...records].sort(
-        (a, b) => (b.salaryInUsd ?? -1) - (a.salaryInUsd ?? -1),
+        (a, b) =>
+          (b.salaryInUsd ?? b.salary ?? -1) -
+          (a.salaryInUsd ?? a.salary ?? -1),
       ),
     [records],
   )
 
-  // Derive min/max from loaded data
+  // Derive min/max from loaded data — use salaryInUsd when present, else raw salary
   const dataMin = useMemo(() => {
-    const vals = sorted.map((r) => r.salaryInUsd).filter((v) => v != null)
+    const vals = sorted
+      .map((r) => r.salaryInUsd ?? r.salary)
+      .filter((v) => v != null)
     return vals.length ? Math.min(...vals) : 0
   }, [sorted])
 
   const dataMax = useMemo(() => {
-    const vals = sorted.map((r) => r.salaryInUsd).filter((v) => v != null)
+    const vals = sorted
+      .map((r) => r.salaryInUsd ?? r.salary)
+      .filter((v) => v != null)
     return vals.length ? Math.max(...vals) : 0
   }, [sorted])
 
@@ -197,8 +203,8 @@ export default function SalaryList({ countryId, cityId, filters = {} }) {
   const visible = useMemo(
     () =>
       sorted.filter((r) => {
-        // Salary range
-        const s = r.salaryInUsd
+        // Salary range — prefer USD value, fall back to raw salary
+        const s = r.salaryInUsd ?? r.salary
         if (s == null) return true
         if (s < lo || s > hi) return false
 

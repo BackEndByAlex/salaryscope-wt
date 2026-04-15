@@ -20,10 +20,19 @@ const EXPERIENCE_COLORS = {
   Executive: "#d277ff",
 }
 
-function formatSalary(usd) {
-  if (usd == null) return "—"
-  if (usd >= 1000) return `$${Math.round(usd / 1000)}k`
-  return `$${usd}`
+function formatSalary(record) {
+  if (record.salaryInUsd != null) {
+    const usd = record.salaryInUsd
+    if (usd >= 1000) return `$${Math.round(usd / 1000)}k`
+    return `$${usd}`
+  }
+  if (record.salary != null) {
+    const amt = record.salary
+    const cur = record.salaryCurrency ?? ""
+    if (amt >= 1000) return `${Math.round(amt / 1000)}k ${cur}`.trim()
+    return `${amt} ${cur}`.trim()
+  }
+  return "—"
 }
 
 export default function SalaryRow({ record }) {
@@ -38,7 +47,7 @@ export default function SalaryRow({ record }) {
           {record.job?.title ?? "Unknown role"}
         </span>
         <span className="text-sm font-black tabular-nums text-primary shrink-0">
-          {formatSalary(record.salaryInUsd)}
+          {formatSalary(record)}
         </span>
       </div>
       <div className="flex items-center gap-1.5 mt-1 flex-wrap">

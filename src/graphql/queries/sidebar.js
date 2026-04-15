@@ -117,6 +117,8 @@ export const SALARY_LIST_QUERY = gql`
       hasNextPage
       records {
         id
+        salary
+        salaryCurrency
         salaryInUsd
         experienceLevel
         workSetting
