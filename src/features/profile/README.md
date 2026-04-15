@@ -27,4 +27,18 @@ Layout:
 
 ## UserRecords.jsx
 
-Shows salary records the logged-in user has submitted to the API. Currently renders an empty state — the list is wired up but the `records` array is a placeholder. When populated from the API, each entry will show job title, submission date, and salary.
+Shows salary records the logged-in user has submitted to the API. Fetches with `ME_WITH_RECORDS_QUERY` and `fetchPolicy: "network-only"` so the list is always fresh from the server, never served from cache.
+
+Each row shows:
+- Job title
+- City and country
+- Salary (formatted with currency)
+- Work year
+- Experience level
+- Work setting
+
+**Edit** — opens `EditRecordModal`. Country, city, and job title are read-only there. All other fields can be changed.
+
+**Delete** — shows an inline confirmation message in the row before calling `DELETE_SALARY_RECORD`. After deletion the record disappears and the list refetches.
+
+Records from the public dataset (`createdBy: null`) are never returned here — this list only contains records the logged-in user created themselves.

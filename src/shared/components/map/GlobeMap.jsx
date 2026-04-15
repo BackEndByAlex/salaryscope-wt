@@ -21,12 +21,35 @@ export default function GlobeMap({
   onIdle,
   onCountryClick,
   onCityClick,
+  isAddMode = false,
+  onAddClick,
 }) {
   const mapRef = useRef(null)
   const [cursor, setCursor] = useState("grab")
 
   const handleClick = useCallback(
-    (e) => {
+    async (e) => {
+      if (isAddMode) {
+        const { lat, lng } = e.lngLat
+        try {
+          const res = await fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`,
+          )
+          const data = await res.json()
+          const cityName = data.city || data.locality || ""
+          const countryName = data.countryName || ""
+          if (!countryName) return
+
+          const match = countryGeoJSON.features.find(
+            (f) => f.properties.name.toLowerCase() === countryName.toLowerCase(),
+          )
+          onAddClick?.(countryName, match?.properties.id ?? null, cityName)
+        } catch {
+          // network error — ignore silently
+        }
+        return
+      }
+
       const feature = e.features?.[0]
       if (!feature) return
 
@@ -40,12 +63,19 @@ export default function GlobeMap({
         onCityClick?.(feature.properties)
       }
     },
-    [onCountryClick, onCityClick],
+    [isAddMode, countryGeoJSON, onAddClick, onCountryClick, onCityClick],
   )
 
-  const handleMouseMove = useCallback((e) => {
-    setCursor(e.features?.length > 0 ? "pointer" : "grab")
-  }, [])
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (isAddMode) {
+        setCursor("crosshair")
+        return
+      }
+      setCursor(e.features?.length > 0 ? "pointer" : "grab")
+    },
+    [isAddMode],
+  )
 
   return (
     <MapGL

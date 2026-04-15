@@ -9,6 +9,8 @@ Read-only GraphQL queries. Each file groups the queries used by one part of the 
 **`ME_QUERY`** — fetches `{ id, email }` for the current session.  
 Used twice: by `AuthProvider` on mount to restore session state, and by `ProfilePage` to show user details (`fetchPolicy: "network-only"` in the latter so it always goes to the server).
 
+**`ME_WITH_RECORDS_QUERY`** — extends `ME_QUERY` with the full `salaryRecords` array for the logged-in user. Each record includes job title, city, employee country, salary, currency, work year, experience level, and work setting. Used by `UserRecords` on the profile page with `fetchPolicy: "network-only"` so the list is always fresh after creates, updates, or deletes.
+
 ---
 
 ## home.js

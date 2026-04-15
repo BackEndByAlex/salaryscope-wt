@@ -6,10 +6,11 @@ The core of the app. An interactive 3D globe where you explore salary data by cl
 
 ## DashboardPage.jsx
 
-Top-level layout. Holds two pieces of shared state:
+Top-level layout. Holds three pieces of shared state:
 
 - **Selected location** — which country or city the user clicked on the globe (local React state)
 - **Active filters** — what filters are currently applied (`useDashboardFilters`, stored in the URL)
+- **Add mode** — boolean that enables the "click to add salary" flow (only shown when logged in)
 
 It composes three things side by side and passes state between them:
 
@@ -27,6 +28,9 @@ It composes three things side by side and passes state between them:
 ```
 
 When the user clicks a different country on the globe while a company filter is active, the company filter is cleared automatically — because that company might not exist in the new country.
+
+**Add mode flow:**  
+Logged-in users see an "Add Salary" button. Clicking it enters add mode — a banner appears at the top and the cursor changes to a crosshair. The user then clicks anywhere on the globe. `GlobeMap` calls BigDataCloud's reverse geocode API to resolve the clicked coordinates to a country and city name, then calls `onAddClick(countryName, countryId, cityName)` back to `DashboardPage`. This opens `CreateRecordModal` pre-filled with the detected location. After a successful submission `refetchCities()` is called to make any newly created city dot appear on the map.
 
 ---
 
@@ -62,6 +66,35 @@ Fires `COUNTRY_SIDEBAR_QUERY` or `CITY_SIDEBAR_QUERY` for the selected location.
 Renders `SalaryList` with the selected country/city ID and all active filters. This is the paginated list of actual records, filtered to match what the user selected.
 
 The sidebar is resizable — drag its left edge to make it wider or narrower.
+
+---
+
+## CreateRecordModal.jsx
+
+Opens after the user clicks a location on the globe in add mode. Pre-filled with the country name (read-only) and the city name detected by BigDataCloud.
+
+Fields:
+- **City** — text, pre-filled from geocoding, editable
+- **Job Title** — free text, triggers `findOrCreate` on the API
+- **Salary** — numeric
+- **Currency** — text
+- **Experience Level** — EN / MI / SE / EX
+- **Employment Type** — FT / PT / CT / FL
+- **Work Setting** — Remote / Hybrid / In-Person
+- **Company Size** — S / M / L
+- **Work Year** — numeric
+
+Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle` and `cityName` instead of IDs — the API handles `findOrCreate` for both. On success calls `onCreated()` which closes the modal and triggers `refetchCities()`.
+
+---
+
+## EditRecordModal.jsx
+
+Opens from the Profile page when the user clicks "Edit" on one of their salary records.
+
+Country, city, and job title are read-only — they cannot be changed after submission. All other fields (salary, currency, experience level, employment type, work setting, company size, work year) are editable.
+
+Calls `UPDATE_SALARY_RECORD` with only the changed fields. On success calls `onUpdated()` to refresh the record list.
 
 ---
 

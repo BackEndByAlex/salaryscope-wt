@@ -30,7 +30,7 @@ export function useGlobeData() {
   const [focusedCountryId, setFocusedCountryId] = useState(null)
 
   const { data: countryData } = useQuery(COUNTRIES_QUERY)
-  const { data: cityData } = useQuery(CITIES_QUERY, {
+  const { data: cityData, refetch: refetchCities } = useQuery(CITIES_QUERY, {
     skip: !focusedCountryId,
     variables: { countryId: focusedCountryId },
   })
@@ -154,5 +154,6 @@ export function useGlobeData() {
     handleMapLoad,
     handleMoveEnd,
     handleIdle,
+    refetchCities,
   }
 }

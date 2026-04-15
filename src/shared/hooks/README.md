@@ -80,6 +80,8 @@ Fires when the camera stops moving. If zoom ≥ 3.0, finds the country closest t
 **`handleIdle`**
 Fires when tiles have fully loaded. Scans rendered tile features, matches them against the country/city indexes using the name lookup maps, and rebuilds the GeoJSON dot layers. Also accumulates new city positions into the persistent cache.
 
+**`refetchCities`** — returned alongside the event handlers. Exposed so `DashboardPage` can call it after a new salary record is created. If the record included a new city that didn't previously exist in the database, calling `refetchCities()` re-fires `CITIES_QUERY`, updates `cityIndexRef`, and the next `handleIdle` scan will place the new dot on the map.
+
 ---
 
 ## useResizable.js

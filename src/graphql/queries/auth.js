@@ -11,3 +11,36 @@ export const ME_QUERY = gql`
     }
   }
 `
+
+export const ME_WITH_RECORDS_QUERY = gql`
+  query MeWithRecords {
+    me {
+      id
+      email
+      createdAt
+      githubConnected
+      googleConnected
+      salaryRecords {
+        id
+        salary
+        salaryCurrency
+        salaryInUsd
+        workYear
+        experienceLevel
+        employmentType
+        workSetting
+        companySize
+        job {
+          title
+        }
+        city {
+          name
+        }
+        employeeCountry {
+          name
+        }
+        createdAt
+      }
+    }
+  }
+`

@@ -52,3 +52,21 @@ Builds city GeoJSON from the accumulated position cache (not just currently visi
 
 **`findFocusedCountry(positionCache, center)`**  
 Finds the country in the position cache whose recorded coordinates are closest to the current map center. Used by `handleMoveEnd` to determine which country's cities to fetch next.
+
+---
+
+## GlobeMap — add mode
+
+`GlobeMap` accepts two optional props that enable the "click to add salary" flow:
+
+- **`isAddMode`** — when `true`, the cursor changes to a crosshair and map clicks are intercepted before the normal country-select logic runs
+- **`onAddClick(countryName, countryId, cityName)`** — called by `GlobeMap` after a click is resolved to a location
+
+When the user clicks the map in add mode:
+
+1. The click's `lngLat` is sent to [BigDataCloud's reverse geocode API](https://www.bigdatacloud.com/free-api/free-reverse-geocode-to-city-api) — a free, no-API-key, CORS-enabled endpoint that returns `{ city, countryName }` for any coordinate
+2. The returned `countryName` is matched against `countryGeoJSON.features` to find the API's country ID
+3. `onAddClick` is called with the resolved country name, country ID, and city name
+4. `DashboardPage` receives the call and opens `CreateRecordModal` pre-filled with the location
+
+If the click hits open ocean (no country detected) the flow is silently cancelled.
