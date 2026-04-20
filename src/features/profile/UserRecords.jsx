@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@apollo/client/react"
 import { ME_WITH_RECORDS_QUERY } from "../../graphql/queries/auth.js"
 import { DELETE_SALARY_RECORD } from "../../graphql/mutation/salaryRecords.js"
 import EditRecordModal from "../dashboard/EditRecordModal.jsx"
+import { useToast } from "../../shared/components/toast/ToastProvider.jsx"
 
 function formatSalary(record) {
   const amount = record.salaryInUsd ?? record.salary
@@ -13,11 +14,15 @@ function formatSalary(record) {
 }
 
 export default function UserRecords() {
+  const toast = useToast()
+
   const { data, loading } = useQuery(ME_WITH_RECORDS_QUERY, {
     fetchPolicy: "network-only",
   })
   const [deleteRecord] = useMutation(DELETE_SALARY_RECORD, {
     refetchQueries: [{ query: ME_WITH_RECORDS_QUERY }],
+    onCompleted: () => toast.success("Record deleted"),
+    onError: () => toast.error("Failed to delete record"),
   })
 
   const [editingRecord, setEditingRecord] = useState(null)

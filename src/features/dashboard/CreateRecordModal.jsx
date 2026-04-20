@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useMutation } from "@apollo/client/react"
 import { CREATE_SALARY_RECORD } from "../../graphql/mutation/salaryRecords.js"
 import { ME_WITH_RECORDS_QUERY } from "../../graphql/queries/auth.js"
+import { useToast } from "../../shared/components/toast/ToastProvider.jsx"
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -34,6 +35,8 @@ export default function CreateRecordModal({
   onClose,
   onCreated,
 }) {
+  const toast = useToast()
+
   const [form, setForm] = useState({
     city: initialCity,
     jobTitle: "",
@@ -46,9 +49,13 @@ export default function CreateRecordModal({
     workYear: String(CURRENT_YEAR),
   })
 
-  const [create, { loading, error }] = useMutation(CREATE_SALARY_RECORD, {
+  const [create, { loading }] = useMutation(CREATE_SALARY_RECORD, {
     refetchQueries: [{ query: ME_WITH_RECORDS_QUERY }],
-    onCompleted: () => onCreated(),
+    onCompleted: () => {
+      toast.success("Salary record added")
+      onCreated()
+    },
+    onError: (err) => toast.error(err.message),
   })
 
   function set(key, value) {
@@ -194,8 +201,6 @@ export default function CreateRecordModal({
             onChange={(e) => set("workYear", e.target.value)}
             required
           />
-
-          {error && <p className="text-red-400 text-sm">{error.message}</p>}
 
           <div className="flex gap-3 pt-2">
             <button

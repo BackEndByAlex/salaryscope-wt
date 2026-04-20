@@ -4,6 +4,7 @@ import { useApolloClient } from "@apollo/client/react"
 import { useNavigate } from "react-router"
 import { DELETE_ACCOUNT_MUTATION } from "../../../graphql/mutation/auth.js"
 import { useAuth } from "../../../features/auth/useAuth.js"
+import { useToast } from "../toast/ToastProvider.jsx"
 
 export default function DeleteAccountCard() {
   const [confirming, setConfirming] = useState(false)
@@ -11,12 +12,17 @@ export default function DeleteAccountCard() {
   const apolloClient = useApolloClient()
   const { setUser } = useAuth()
   const navigate = useNavigate()
+  const toast = useToast()
 
   async function handleDelete() {
-    await deleteAccount()
-    await apolloClient.clearStore()
-    setUser(null)
-    navigate("/")
+    try {
+      await deleteAccount()
+      await apolloClient.clearStore()
+      setUser(null)
+      navigate("/")
+    } catch {
+      toast.error("Failed to delete account")
+    }
   }
 
   return (

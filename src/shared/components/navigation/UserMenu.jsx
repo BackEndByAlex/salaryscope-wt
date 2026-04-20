@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router"
 import { useAuth } from "../../../features/auth/useAuth.js"
+import { useToast } from "../toast/ToastProvider.jsx"
 
 export default function UserMenu() {
   const { user, logout } = useAuth()
   const [open, setOpen] = useState(false)
   const menuRef = useRef(null)
   const navigate = useNavigate()
+  const toast = useToast()
 
   // Close on outside click
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function UserMenu() {
   async function handleLogout() {
     setOpen(false)
     await logout()
+    toast.success("Logged out")
     navigate("/")
   }
 

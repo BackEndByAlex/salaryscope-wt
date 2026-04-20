@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useMutation } from "@apollo/client/react"
 import { UPDATE_SALARY_RECORD } from "../../graphql/mutation/salaryRecords.js"
 import { ME_WITH_RECORDS_QUERY } from "../../graphql/queries/auth.js"
+import { useToast } from "../../shared/components/toast/ToastProvider.jsx"
 
 const EXPERIENCE_OPTIONS = [
   { value: "EN", label: "Entry-level" },
@@ -26,6 +27,8 @@ const COMPANY_SIZE_OPTIONS = [
 const CURRENCY_OPTIONS = ["USD", "EUR", "GBP", "SEK"]
 
 export default function EditRecordModal({ record, onClose, onUpdated }) {
+  const toast = useToast()
+
   const [form, setForm] = useState({
     salary: String(record.salary ?? ""),
     currency: record.salaryCurrency ?? "USD",
@@ -36,11 +39,13 @@ export default function EditRecordModal({ record, onClose, onUpdated }) {
     workYear: String(record.workYear ?? new Date().getFullYear()),
   })
 
-  const [update, { loading, error }] = useMutation(UPDATE_SALARY_RECORD, {
+  const [update, { loading }] = useMutation(UPDATE_SALARY_RECORD, {
     refetchQueries: [{ query: ME_WITH_RECORDS_QUERY }],
     onCompleted: () => {
+      toast.success("Record updated")
       onUpdated()
     },
+    onError: (err) => toast.error(err.message),
   })
 
   function set(key, value) {
@@ -113,10 +118,6 @@ export default function EditRecordModal({ record, onClose, onUpdated }) {
           </div>
 
           <Field label="Work Year" type="number" value={form.workYear} onChange={(e) => set("workYear", e.target.value)} required />
-
-          {error && (
-            <p className="text-red-400 text-sm">{error.message}</p>
-          )}
 
           <div className="flex gap-3 pt-2">
             <button
