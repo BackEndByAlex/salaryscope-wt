@@ -5,6 +5,13 @@ import { DELETE_SALARY_RECORD } from "../../graphql/mutation/salaryRecords.js"
 import EditRecordModal from "../dashboard/EditRecordModal.jsx"
 import { useToast } from "../../shared/components/toast/ToastProvider.jsx"
 
+const EXPERIENCE_LABELS = {
+  EN: "Entry-level",
+  MI: "Mid-level",
+  SE: "Senior",
+  EX: "Executive",
+}
+
 function formatSalary(record) {
   const amount = record.salaryInUsd ?? record.salary
   if (amount == null) return "—"

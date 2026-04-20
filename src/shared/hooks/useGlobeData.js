@@ -16,6 +16,22 @@ import {
   findFocusedCountry,
 } from "../map/utils.js"
 
+const COUNTRY_NAME_ALIASES = {
+  "united states of america": "united states",
+  "united kingdom of great britain and northern ireland": "united kingdom",
+  "russian federation": "russia",
+  "republic of korea": "south korea",
+  "viet nam": "vietnam",
+  "czechia": "czech republic",
+  "islamic republic of iran": "iran",
+  "bolivarian republic of venezuela": "venezuela",
+  "plurinational state of bolivia": "bolivia",
+  "lao people's democratic republic": "laos",
+  "syrian arab republic": "syria",
+  "republic of moldova": "moldova",
+  "democratic people's republic of korea": "north korea",
+}
+
 export function useGlobeData() {
   const mapInstanceRef = useRef(null)
   const countryIndexRef = useRef(new Map())

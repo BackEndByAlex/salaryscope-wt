@@ -40,7 +40,7 @@ export default function GlobeMap({
           const countryName = data.countryName || ""
           if (!countryName) return
 
-          onAddClick?.(countryName, cityName)
+          onAddClick?.(countryName, cityName, [lng, lat])
         } catch {
           // network error — ignore silently
         }

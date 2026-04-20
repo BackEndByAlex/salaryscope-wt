@@ -16,6 +16,7 @@ export const CREATE_SALARY_RECORD = gql`
         title
       }
       city {
+        id
         name
       }
       employeeCountry {
