@@ -40,10 +40,7 @@ export default function GlobeMap({
           const countryName = data.countryName || ""
           if (!countryName) return
 
-          const match = countryGeoJSON.features.find(
-            (f) => f.properties.name.toLowerCase() === countryName.toLowerCase(),
-          )
-          onAddClick?.(countryName, match?.properties.id ?? null, cityName)
+          onAddClick?.(countryName, cityName)
         } catch {
           // network error — ignore silently
         }
@@ -63,7 +60,7 @@ export default function GlobeMap({
         onCityClick?.(feature.properties)
       }
     },
-    [isAddMode, countryGeoJSON, onAddClick, onCountryClick, onCityClick],
+    [isAddMode, onAddClick, onCountryClick, onCityClick],
   )
 
   const handleMouseMove = useCallback(

@@ -148,6 +148,11 @@ export function useGlobeData() {
     setCountryGeoJSON(extractCountryGeoJSON(map, countryIndexRef.current))
   }, [])
 
+  const getCountryIdByName = useCallback((name) => {
+    const entry = countryIndexRef.current.get(name.toLowerCase())
+    return entry?.id ?? null
+  }, [])
+
   return {
     countryGeoJSON,
     cityGeoJSON,
@@ -155,5 +160,6 @@ export function useGlobeData() {
     handleMoveEnd,
     handleIdle,
     refetchCities,
+    getCountryIdByName,
   }
 }

@@ -15,6 +15,9 @@ Creates a new account. Returns `{ user { id, email } }` on success. Does not log
 **`LOGOUT_MUTATION`**  
 Clears the session cookie server-side. Returns a boolean. After calling this, all subsequent requests will be unauthenticated.
 
+**`DELETE_ACCOUNT_MUTATION`**  
+Fires the `deleteAccount` mutation. Requires an active session cookie. On success: clears the Apollo cache, sets user to null, and navigates to `/`. No variables needed.
+
 ---
 
 **`BEGIN_GOOGLE_LOGIN_MUTATION`** / **`BEGIN_GITHUB_LOGIN_MUTATION`**  

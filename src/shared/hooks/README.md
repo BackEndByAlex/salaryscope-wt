@@ -82,6 +82,8 @@ Fires when tiles have fully loaded. Scans rendered tile features, matches them a
 
 **`refetchCities`** — returned alongside the event handlers. Exposed so `DashboardPage` can call it after a new salary record is created. If the record included a new city that didn't previously exist in the database, calling `refetchCities()` re-fires `CITIES_QUERY`, updates `cityIndexRef`, and the next `handleIdle` scan will place the new dot on the map.
 
+**`getCountryIdByName(name)`** — looks up a country ID from the full `countryIndexRef` (all API countries, not just currently visible tiles). Used by `DashboardPage` to resolve the country ID after a BigDataCloud reverse geocode result before opening `CreateRecordModal`.
+
 ---
 
 ## useResizable.js

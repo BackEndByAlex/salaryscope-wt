@@ -16,6 +16,7 @@ export default function DashboardPage() {
     handleMoveEnd,
     handleIdle,
     refetchCities,
+    getCountryIdByName,
   } = useGlobeData()
 
   const { filters, activeCount, toggle, clear, clearFilter } =
@@ -49,10 +50,11 @@ export default function DashboardPage() {
     setSelectedCity(null)
   }, [])
 
-  const handleAddClick = useCallback((countryName, countryId, cityName) => {
+  const handleAddClick = useCallback((countryName, cityName) => {
+    const countryId = getCountryIdByName(countryName)
     setIsAddMode(false)
     setPendingLocation({ countryName, countryId, cityName })
-  }, [])
+  }, [getCountryIdByName])
 
   const handleCreated = useCallback(() => {
     setPendingLocation(null)

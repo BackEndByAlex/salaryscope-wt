@@ -6,7 +6,9 @@ The authenticated user's profile page. Only reachable when logged in — `Protec
 
 ## ProfilePage.jsx
 
-Fetches the current user with `ME_QUERY` using `fetchPolicy: "network-only"` to always get fresh data (not a cached version from the `AuthProvider` probe). Passes the result down to three display components.
+Fetches the current user with `ME_WITH_RECORDS_QUERY` using `fetchPolicy: "network-only"` to always get fresh data (not a cached version from the `AuthProvider` probe). Using the records-included query here means the sidebar count is always in sync with the record list — no second request needed.
+
+Derives `recordCount` from `data.me.salaryRecords.length` and passes it to `ProfileSidebar` so the "Records Contributed" stat reflects the real number. Passes the result down to the display components.
 
 Layout:
 
@@ -22,6 +24,8 @@ Layout:
 │                  │  (salary records submitted)       │
 └──────────────────┴───────────────────────────────────┘
 ```
+
+The `ProfileSidebar` receives a `recordCount` prop and shows it as the "Records Contributed" stat.
 
 ---
 
@@ -42,3 +46,9 @@ Each row shows:
 **Delete** — shows an inline confirmation message in the row before calling `DELETE_SALARY_RECORD`. After deletion the record disappears and the list refetches.
 
 Records from the public dataset (`createdBy: null`) are never returned here — this list only contains records the logged-in user created themselves.
+
+---
+
+## DeleteAccountCard.jsx
+
+Lives in `src/shared/components/profile/`. Shows a "Danger Zone" section with a two-step confirm flow — "Delete Account" button reveals a panel with "Yes, delete my account" / "Cancel". On confirm: fires `DELETE_ACCOUNT_MUTATION`, clears the Apollo cache, sets user to null, and navigates to `/`. Salary records remain in the dataset but become anonymous (`createdBy` set to `null`).

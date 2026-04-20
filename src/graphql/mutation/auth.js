@@ -65,3 +65,9 @@ export const GITHUB_LOGIN_MUTATION = gql`
     }
   }
 `
+
+export const DELETE_ACCOUNT_MUTATION = gql`
+  mutation DeleteAccount {
+    deleteAccount
+  }
+`

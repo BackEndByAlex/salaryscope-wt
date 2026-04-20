@@ -11,10 +11,9 @@ function memberSince(createdAt) {
   return isNaN(year) ? "—" : String(year)
 }
 
-export default function ProfileSidebar({ user, loading }) {
+export default function ProfileSidebar({ user, loading, recordCount = 0 }) {
   const stats = [
-    { value: "0", color: "text-primary", label: "Records Contributed" },
-    { value: "0", color: "text-on-surface", label: "Salary Queries" },
+    { value: loading ? "…" : String(recordCount), color: "text-primary", label: "Records Contributed" },
     {
       value: loading ? "…" : memberSince(user?.createdAt),
       color: "text-secondary",
