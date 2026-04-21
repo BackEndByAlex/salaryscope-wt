@@ -11,7 +11,8 @@ import { ME_WITH_RECORDS_QUERY } from "../../graphql/queries/auth.js"
 const FOOTER_LINKS = [
   { label: "Privacy", href: "#" },
   { label: "Terms", href: "#" },
-  { label: "Docs", href: "#" },
+  { label: "Dashboard Docs", href: "/docs/" },
+  { label: "API Docs", href: "https://cu0080.camp.lnu.se/docs/" },
 ]
 
 export default function ProfilePage() {

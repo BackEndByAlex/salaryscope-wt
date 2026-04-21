@@ -12,6 +12,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
+    "dev:docs": "npm --prefix docs run start",
+    "dev:all": "concurrently -n app,docs -c cyan,yellow \"npm run dev\" \"npm run dev:docs\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
     "tailwindcss": "^4.2.2",
     "vite": "^8.0.3"
   }

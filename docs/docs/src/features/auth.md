@@ -1,8 +1,13 @@
+---
+sidebar_position: 2
+sidebar_label: Authentication
+---
+
 # auth/
 
 Everything that handles who the user is and whether they are allowed to be somewhere.
 
-![Auth Flow](../../../diagram/03-auth-flow.svg)
+![Auth Flow](/img/diagrams/03-auth-flow.svg)
 
 ---
 
@@ -106,12 +111,6 @@ A wrapper component. Checks `useAuth()`. If `user` is null, redirects to `/login
 ## GuestRoute.jsx
 
 The opposite of `ProtectedRoute`. If a user is already logged in, redirects to `/dashboard`. Otherwise renders the child (login/register pages). Prevents a logged-in user from seeing the login form.
-
----
-
-## RegisterBackground.jsx
-
-Decorative animated background for the register page. Visual only — no logic.
 
 ---
 

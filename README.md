@@ -59,6 +59,10 @@ For a VG grade, integrate **one** AI/ML feature into the application. Pick one b
 
 *Describe your chosen AI/ML feature and how it integrates with your application:*
 
+## Architecture
+
+![App Architecture](./diagram/01-app-architecture.svg)
+
 ## Core Technologies Used
 
 | Layer | Options |

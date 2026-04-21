@@ -1,10 +1,15 @@
+---
+sidebar_position: 3
+sidebar_label: Dashboard
+---
+
 # dashboard/
 
 The core of the app. An interactive 3D globe where you explore salary data by clicking countries and cities.
 
-![Dashboard Filter Flow](../../../diagram/05-dashboard-filter-flow.svg)
+![Dashboard Filter Flow](/img/diagrams/05-dashboard-filter-flow.svg)
 
-![Globe Interaction](../../../diagram/06-globe-interaction.svg)
+![Globe Interaction](/img/diagrams/06-globe-interaction.svg)
 
 ---
 
@@ -64,10 +69,10 @@ The right panel. Slides in from the right when a country or city is clicked on t
 Two sections:
 
 **1. Breakdown stats** (top)  
-Fires `COUNTRY_SIDEBAR_QUERY` or `CITY_SIDEBAR_QUERY` for the selected location. Shows total record count plus splits by experience level and work setting. These counts respect the selected region but not the active filters — they give a full picture of what data exists.
+Fires `COUNTRY_SIDEBAR_QUERY` or `CITY_SIDEBAR_QUERY` for the selected location. Shows total record count plus splits by experience level and work setting.
 
 **2. Salary records** (bottom)  
-Renders `SalaryList` with the selected country/city ID and all active filters. This is the paginated list of actual records, filtered to match what the user selected.
+Renders `SalaryList` with the selected country/city ID and all active filters.
 
 The sidebar is resizable — drag its left edge to make it wider or narrower.
 
@@ -77,18 +82,9 @@ The sidebar is resizable — drag its left edge to make it wider or narrower.
 
 Opens after the user clicks a location on the globe in add mode. Pre-filled with the country name (read-only) and the city name detected by BigDataCloud.
 
-Fields:
-- **City** — text, pre-filled from geocoding, editable
-- **Job Title** — free text, triggers `findOrCreate` on the API
-- **Salary** — numeric
-- **Currency** — text
-- **Experience Level** — EN / MI / SE / EX
-- **Employment Type** — FT / PT / CT / FL
-- **Work Setting** — Remote / Hybrid / In-Person
-- **Company Size** — S / M / L
-- **Work Year** — numeric
+Fields: City, Job Title, Salary, Currency, Experience Level, Employment Type, Work Setting, Company Size, Work Year.
 
-Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle` and `cityName` instead of IDs — the API handles `findOrCreate` for both. On success calls `onCreated()` which closes the modal and triggers `refetchCities()`.
+Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle` and `cityName` instead of IDs — the API handles `findOrCreate` for both.
 
 ---
 
@@ -96,9 +92,9 @@ Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle`
 
 Opens from the Profile page when the user clicks "Edit" on one of their salary records.
 
-Country, city, and job title are read-only — they cannot be changed after submission. All other fields (salary, currency, experience level, employment type, work setting, company size, work year) are editable.
+Country, city, and job title are read-only — they cannot be changed after submission. All other fields are editable.
 
-Calls `UPDATE_SALARY_RECORD` with only the changed fields. On success calls `onUpdated()` to refresh the record list.
+Calls `UPDATE_SALARY_RECORD` with only the changed fields.
 
 ---
 

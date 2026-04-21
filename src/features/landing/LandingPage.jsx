@@ -15,7 +15,11 @@ export default function LandingPage() {
         <FeaturesSection />
         <CtaSection />
       </main>
-      <AppFooter py="py-8" links={[{ label: "Gitlab Source", href: "#" }]} />
+      <AppFooter py="py-8" links={[
+        { label: "Gitlab Source", href: "#" },
+        { label: "Dashboard Docs", href: "/docs/" },
+        { label: "API Docs", href: "https://cu0080.camp.lnu.se/docs/" },
+      ]} />
     </div>
   )
 }

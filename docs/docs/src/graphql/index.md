@@ -1,8 +1,13 @@
+---
+sidebar_position: 1
+sidebar_label: Overview
+---
+
 # graphql/
 
 All GraphQL documents used by the app — queries and mutations. No logic, no components, just GQL strings.
 
-![GraphQL Data Flow](../../diagram/04-graphql-data-flow.svg)
+![GraphQL Data Flow](/img/diagrams/04-graphql-data-flow.svg)
 
 ---
 
@@ -27,6 +32,3 @@ graphql/
 ├── queries/     read operations — fetch data from the API
 └── mutation/    write operations — auth (login, register, OAuth)
 ```
-
-→ [queries/README.md](./queries/README.md)  
-→ [mutation/README.md](./mutation/README.md)

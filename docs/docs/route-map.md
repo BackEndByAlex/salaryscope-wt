@@ -1,7 +1,11 @@
+---
+sidebar_position: 2
+sidebar_label: Route Map
+---
+
 # SalaryScope — Route Map
 
-Architecture reference for the SalaryScope frontend (WT2).  
-For setup and commands see [README.md](./README.md).
+Architecture reference for the SalaryScope frontend (WT2).
 
 ---
 
@@ -36,7 +40,7 @@ src/lib/             ← Apollo Client instance, configured once
 
 ## Route table
 
-![Route Table](./diagram/02-route-table.svg)
+![Route Table](/img/diagrams/02-route-table.svg)
 
 
 | URL              | Page            | Feature                   | Who can access                                                |
@@ -124,15 +128,4 @@ DashboardFilterSidebar         DashboardSidebar
 
 Filters live in the URL so they survive page reload and can be copied as a link.  
 A single active value is sent directly to the API.  
-Two or more active values for the same dimension → null sent to API, client filters the page after it arrives.
-
----
-
-## Sub-folder READMEs
-
-- [src/](./src/README.md) — entry point and App routing
-- [src/features/](./src/features/README.md) — feature domains
-- [src/pages/](./src/pages/README.md) — URL entry points
-- [src/graphql/](./src/graphql/README.md) — queries and mutations
-- [src/lib/](./src/lib/README.md) — Apollo Client setup
-- [src/shared/](./src/shared/README.md) — hooks, map, and components
+Two or more active values for the same dimension → `null` sent to API, client filters the page after it arrives.
