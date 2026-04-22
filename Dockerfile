@@ -17,12 +17,12 @@ ARG VITE_GOOGLE_REDIRECT_URI
 
 RUN npm run build
 
-
 # Stage 2: serve
 FROM caddy:2-alpine AS runtime
 
 COPY --from=builder /app/dist /srv
+COPY Caddyfile.frontend /etc/caddy/Caddyfile
 
 EXPOSE 3001
 
-CMD ["caddy", "file-server", "--root", "/srv", "--listen", ":3001"]
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]
