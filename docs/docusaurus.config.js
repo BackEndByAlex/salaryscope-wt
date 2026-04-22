@@ -1,43 +1,39 @@
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from "prism-react-renderer"
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'SalaryScope Dashboard',
-  tagline: 'Frontend Documentation',
-  favicon: 'img/favicon.ico',
+  title: "SalaryScope Dashboard",
+  tagline: "Frontend Documentation",
+  favicon: "img/favicon.ico",
 
-  future: {
-    v4: true,
-  },
+  url: "https://cu0080.camp.lnu.se",
+  baseUrl: "/docs/",
 
-  url: 'https://cu0080.camp.lnu.se',
-  baseUrl: '/docs/',
-
-  onBrokenLinks: 'warn',
+  onBrokenLinks: "warn",
 
   markdown: {
     hooks: {
-      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownLinks: "warn",
     },
   },
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: './sidebars.js',
-          routeBasePath: '/',
+          sidebarPath: "./sidebars.js",
+          routeBasePath: "/",
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       }),
     ],
@@ -50,50 +46,50 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'SalaryScope Dashboard',
+        title: "SalaryScope Dashboard",
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'apiSidebar',
-            position: 'left',
-            label: 'Documentation',
+            type: "docSidebar",
+            sidebarId: "apiSidebar",
+            position: "left",
+            label: "Documentation",
           },
           {
-            href: 'https://cu0080.camp.lnu.se/graphql',
-            label: 'GraphQL API',
-            position: 'right',
+            href: "https://cu0080.camp.lnu.se/graphql",
+            label: "GraphQL API",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Overview',
-                to: '/',
+                label: "Overview",
+                to: "/",
               },
             ],
           },
           {
-            title: 'API',
+            title: "API",
             items: [
               {
-                label: 'GraphQL Playground',
-                href: 'https://cu0080.camp.lnu.se/graphql',
+                label: "GraphQL Playground",
+                href: "https://cu0080.camp.lnu.se/graphql",
               },
             ],
           },
         ],
-        copyright: 'SalaryScope Dashboard Documentation',
+        copyright: "SalaryScope Dashboard Documentation",
       },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
     }),
-};
+}
 
-export default config;
+export default config
