@@ -96,7 +96,7 @@ export default function DashboardPage() {
           {user && (
             <button
               onClick={() => setIsAddMode((v) => !v)}
-              className={`absolute bottom-6 right-6 z-10 flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all shadow-lg ${
+              className={`absolute bottom-6 right-20 z-10 flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all shadow-lg ${
                 isAddMode
                   ? "bg-primary text-on-primary"
                   : "bg-surface-container border border-outline-variant/30 text-on-surface hover:bg-surface-container-high"

@@ -10,12 +10,14 @@ import Profile from "./pages/Profile.jsx"
 import Dashboard from "./pages/Dashboard.jsx"
 import Analytics from "./pages/Analytics.jsx"
 import OAuthCallback from "./features/auth/OAuthCallback.jsx"
+import ChatBubble from "./features/chat/ChatBubble.jsx"
 
 export default function App() {
   return (
     <BrowserRouter>
       <ToastProvider>
         <AuthProvider>
+          <ChatBubble />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
