@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/Users/alexs/Desktop/1DV027/assignment-wt log --oneline -- \"src/shared/components/auth/OAuthButtons.jsx\")"
+    ]
+  }
+}

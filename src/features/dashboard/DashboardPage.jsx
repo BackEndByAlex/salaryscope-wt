@@ -61,6 +61,11 @@ export default function DashboardPage() {
     refetchCities()
   }, [refetchCities])
 
+  const handleSearchSelect = useCallback(({ countryId, countryName, cityId, cityName }) => {
+    if (countryId) setSelectedCountry({ id: countryId, name: countryName })
+    if (cityId) setSelectedCity({ id: cityId, name: cityName })
+  }, [])
+
 
   return (
     <div className="h-screen flex flex-col bg-surface overflow-hidden">
@@ -75,6 +80,7 @@ export default function DashboardPage() {
           onClear={clear}
           selectedCountryId={selectedCountry?.id ?? null}
           selectedCityId={selectedCity?.id ?? null}
+          onSearchSelect={handleSearchSelect}
         />
 
         {/* Center — globe, right sidebar overlays on top */}
