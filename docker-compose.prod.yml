@@ -1,0 +1,42 @@
+# Production — Caddy reverse proxy, SPA frontend, Docusaurus docs.
+#
+# Deploy:
+#   docker compose -f docker-compose.prod.yml up --build -d
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - /etc/ssl/certs/LNU_FTK_Campus_Root_CA_2025.pem:/etc/ssl/certs/LNU_FTK_Campus_Root_CA_2025.pem:ro
+    depends_on:
+      - frontend
+      - docs
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_GRAPHQL_URL: ${VITE_GRAPHQL_URL}
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_GITHUB_CLIENT_ID: ${VITE_GITHUB_CLIENT_ID}
+        VITE_GITHUB_REDIRECT_URI: ${VITE_GITHUB_REDIRECT_URI}
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
+        VITE_GOOGLE_REDIRECT_URI: ${VITE_GOOGLE_REDIRECT_URI}
+    restart: always
+
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile.docs
+    restart: always
+
+volumes:
+  caddy_data:
+  caddy_config:

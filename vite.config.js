@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/docs': 'http://localhost:3000',
+      '/docs': process.env.DOCS_URL ?? 'http://localhost:3000',
     },
   },
 })
