@@ -40,6 +40,30 @@ export default function LandingNav() {
           >
             Analytics
           </Link>
+          <a
+            href="/wt-docs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
+          >
+            WT Docs
+          </a>
+          <a
+            href={`${import.meta.env.VITE_API_URL}/api-docs`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
+          >
+            API Docs
+          </a>
+          <a
+            href={import.meta.env.VITE_GRAPHQL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
+          >
+            Apollo
+          </a>
         </nav>
       </div>
 

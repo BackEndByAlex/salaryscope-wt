@@ -10,6 +10,8 @@ export default function AppFooter({ links = [], py = "py-6" }) {
             <a
               key={link.label}
               href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
               {link.label}
