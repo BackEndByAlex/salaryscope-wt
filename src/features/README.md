@@ -9,6 +9,7 @@ The rule is simple: if a component is only used by one feature, it lives inside 
 ```
 features/
 ├── auth/         Login, register, OAuth flow, session management
+├── chat/         AI chat widget powered by Groq LLM (floating bubble + panel)
 ├── dashboard/    Interactive globe map + salary records + filters
 ├── analytics/    Dataset-wide charts and statistics
 ├── landing/      Public landing page
@@ -18,6 +19,8 @@ features/
 ---
 
 ## Features at a glance
+
+**`chat/`** — The floating AI chat assistant. A bubble button fixed to the bottom-right corner of every page opens a chat panel that streams answers from the Groq LLM, grounded in Elasticsearch results from the user's question. See [chat/README.md](./chat/README.md).
 
 **`auth/`** — Everything about who the user is. Handles email/password login and registration, the two-step OAuth flow with Google and GitHub, the session cookie, and the route guards that protect or redirect based on auth state. See [auth/README.md](./auth/README.md).
 

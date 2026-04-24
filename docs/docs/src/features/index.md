@@ -17,7 +17,8 @@ features/
 ├── dashboard/    Interactive globe map + salary records + filters
 ├── analytics/    Dataset-wide charts and statistics
 ├── landing/      Public landing page
-└── profile/      Authenticated user profile and submitted records
+├── profile/      Authenticated user profile and submitted records
+└── chat/         AI chat assistant — floating button, streaming panel, Groq via SSE
 ```
 
 ---
@@ -33,3 +34,5 @@ features/
 **`landing/`** — The public home page with hero, stats, features, and CTA sections. Minimal logic.
 
 **`profile/`** — The authenticated user's page. Shows their identity, linked OAuth providers, and any salary records they have submitted.
+
+**`chat/`** — The AI chat assistant. A floating button in the bottom-right corner opens a 360×520px panel that streams answers from the Groq LLM, grounded in salary data fetched from Elasticsearch via `POST /api/chat` (SSE). Rendered globally in `App.jsx` so it appears on every page. Three files: `ChatBubble.jsx` (toggle button), `ChatPanel.jsx` (UI), and `useChat.js` (state + SSE logic).

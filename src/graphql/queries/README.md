@@ -84,3 +84,23 @@ inPerson: salaryRecords(filters: { workSetting: "In-person", limit: 1 }) { total
 ## cities.js
 
 **`CITIES_QUERY`** — cities for a specific country (requires `countryId`). Used by `useGlobeData` to place city dots when the user zooms in past the city zoom threshold (zoom ≥ 3.0).
+
+---
+
+## search.js
+
+**`SEARCH_RECORDS_QUERY`** — full-text search across all salary records via Elasticsearch.
+
+```graphql
+searchRecords(query: String!, limit: Int, offset: Int) {
+  records {
+    id, jobTitle, jobCategory, country, countryId,
+    city, cityId, salary, salaryInUsd,
+    experienceLevel, workSetting, workYear, source
+  }
+  totalCount
+  hasNextPage
+}
+```
+
+Used by `useSearch` (and through it by the company search inside `DashboardFilterSidebar`). Queries are fired with `fetchPolicy: "network-only"` so results always come from the server, never from cache.

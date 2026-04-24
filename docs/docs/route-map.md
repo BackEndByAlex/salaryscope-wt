@@ -31,6 +31,7 @@ Every component tree below `AuthProvider` knows who the logged-in user is.
 ```
 src/pages/           ← one file per URL, just renders the feature below it
 src/features/        ← business logic + page layout, owns both UI and data
+  └── chat/          ← AI chat (ChatBubble, ChatPanel, useChat) — mounted globally in App.jsx
 src/shared/          ← anything used by 2+ features (components, hooks, map)
 src/graphql/         ← GQL documents only — no logic, no components
 src/lib/             ← Apollo Client instance, configured once

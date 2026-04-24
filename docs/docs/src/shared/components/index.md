@@ -19,6 +19,12 @@ Reusable UI components used across two or more features.
 
 ---
 
+**`notification/NotificationDropdown.jsx`** — a dropdown panel rendered from `LandingNav` when the bell icon is clicked. Lists all session notifications with relative timestamps and marks them all as read on mount.
+
+**`toast/ToastProvider.jsx` + `ToastContainer.jsx`** — `ToastProvider` wraps the app and exposes `useToast()` for any component to trigger toasts. `ToastContainer` renders the active toasts in the corner. Each toast auto-dismisses after 3.5 seconds. Notifications are also persisted to a session list (read by `NotificationDropdown`) so they are not lost when the toast disappears.
+
+---
+
 ## Single-file folders
 
 ```

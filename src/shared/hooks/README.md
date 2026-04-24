@@ -88,6 +88,20 @@ Fires when tiles have fully loaded. Scans rendered tile features, matches them a
 
 ---
 
+## useSearch.js
+
+Debounced Elasticsearch search hook. Wraps `SEARCH_RECORDS_QUERY` with a 300ms debounce so a new network request is only fired once the user stops typing.
+
+- `query` / `setQuery` — the raw input value (bind to the search field)
+- `results` — array of matching salary records from the last settled query
+- `totalCount` — total matches across all pages
+- `loading` — true while the query is in flight
+- `clear()` — resets both the input and the last results
+
+The query only fires when `debouncedQuery.trim().length >= 2`. Shorter inputs return an empty result without touching the network. Used inside `DashboardFilterSidebar` to drive the searchable company filter.
+
+---
+
 ## useResizable.js
 
 Makes a panel resizable by dragging an edge. Used by both sidebars on the dashboard.

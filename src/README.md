@@ -40,6 +40,8 @@ The component tree looks like this:
 
 **`GuestRoute`** — checks `useAuth()`. If a user is already logged in, redirects to `/dashboard` so they can't land on login/register again.
 
+**`ChatBubble`** — rendered once inside `App.jsx`, outside the route tree, so the floating AI chat button appears on every page regardless of the active route.
+
 ---
 
 ## Sub-folders

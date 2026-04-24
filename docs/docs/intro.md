@@ -18,7 +18,7 @@ SalaryScope Dashboard is a React SPA that visualizes ~137,000 global salary reco
 
 ## Deployed Application
 
-> URL: ...
+> URL: https://cu0080.camp.lnu.se
 
 ## Requirements
 
@@ -28,24 +28,24 @@ Requirements are tracked as GitHub Issues in the repository.
 
 | Requirement                                                                        | Status               |
 | ---------------------------------------------------------------------------------- | -------------------- |
-| API Integration — the app consumes your WT1 API                                    | :white_large_square: |
-| OAuth Authentication — users log in via OAuth 2.0                                  | :white_large_square: |
-| Interactive data visualization with aggregation/adaptation for 10 000+ data points | :white_large_square: |
-| Efficient loading — pagination, lazy loading, loading indicators                   | :white_large_square: |
+| API Integration — the app consumes your WT1 API                                    | :white_check_mark:   |
+| OAuth Authentication — users log in via OAuth 2.0                                  | :white_check_mark:   |
+| Interactive data visualization with aggregation/adaptation for 10 000+ data points | :white_check_mark:   |
+| Efficient loading — pagination, lazy loading, loading indicators                   | :white_check_mark:   |
 
 ### Non-Functional Requirements
 
-| Requirement                                   | Status               |
-| --------------------------------------------- | -------------------- |
-| Clear and well-structured code                | :white_large_square: |
-| Code reuse                                    | :white_large_square: |
-| Dependency management and scripts             | :white_large_square: |
-| Source code documentation                     | :white_large_square: |
-| Coding standard                               | :white_large_square: |
-| Examiner can follow the creation process      | :white_large_square: |
-| Publicly accessible over the internet         | :white_large_square: |
-| Keys and tokens handled correctly             | :white_large_square: |
-| Complete assignment report with correct links | :white_large_square: |
+| Requirement                                   | Status             |
+| --------------------------------------------- | ------------------ |
+| Clear and well-structured code                | :white_check_mark: |
+| Code reuse                                    | :white_check_mark: |
+| Dependency management and scripts             | :white_check_mark: |
+| Source code documentation                     | :white_check_mark: |
+| Coding standard                               | :white_check_mark: |
+| Examiner can follow the creation process      | :white_check_mark: |
+| Publicly accessible over the internet         | :white_check_mark: |
+| Keys and tokens handled correctly             | :white_check_mark: |
+| Complete assignment report with correct links | :white_check_mark: |
 
 ### VG — AI/ML Feature (optional)
 
@@ -53,7 +53,7 @@ For a VG grade, integrate **one** AI/ML feature into the application.
 
 | Option                                                        | Status               |
 | ------------------------------------------------------------- | -------------------- |
-| Semantic Search — natural language queries matched by meaning | :white_large_square: |
+| Semantic Search — natural language queries matched by meaning | :white_check_mark:   |
 | Content-Based Recommendations — "items similar to this one"   | :white_large_square: |
 | Clustering & Grouping — auto-group similar items visually     | :white_large_square: |
 
@@ -68,9 +68,9 @@ For a VG grade, integrate **one** AI/ML feature into the application.
 | **Framework**      | React 19 + Vite                  |
 | **GraphQL Client** | Apollo Client                    |
 | **Routing**        | React Router v7                  |
-| **Map / Globe**    | MapLibre GL JS + deck.gl         |
+| **Map / Globe**    | MapLibre GL JS                   |
 | **Charts**         | Recharts                         |
-| **Styling**        | Tailwind CSS v4 + shadcn/ui      |
+| **Styling**        | Tailwind CSS v4                  |
 | **Auth**           | OAuth 2.0 PKCE (GitHub + Google) |
 
 ## How to Use
