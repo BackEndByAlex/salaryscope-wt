@@ -74,7 +74,9 @@ export default function EditRecordModal({ record, onClose, onUpdated }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-surface-container border border-outline-variant/20 rounded-lg w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/20">
-          <h2 className="text-base font-semibold text-on-surface">Edit Salary Record</h2>
+          <h2 className="text-base font-semibold text-on-surface">
+            Edit Salary Record
+          </h2>
           <button
             onClick={onClose}
             className="text-on-surface-variant hover:text-on-surface transition-colors text-lg leading-none"
@@ -86,38 +88,93 @@ export default function EditRecordModal({ record, onClose, onUpdated }) {
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
           {/* Read-only location info */}
           <div className="grid grid-cols-2 gap-3">
-            <ReadOnly label="Country" value={record.employeeCountry?.name ?? "—"} />
+            <ReadOnly
+              label="Country"
+              value={record.employeeCountry?.name ?? "—"}
+            />
             <ReadOnly label="City" value={record.city?.name ?? "—"} />
           </div>
 
           <ReadOnly label="Job Title" value={record.job?.title ?? "—"} />
 
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Salary" type="number" value={form.salary} onChange={(e) => set("salary", e.target.value)} required />
-            <SelectField label="Currency" value={form.currency} onChange={(e) => set("currency", e.target.value)}>
-              {CURRENCY_OPTIONS.map((c) => <option key={c} value={c}>{c}</option>)}
+            <Field
+              label="Salary"
+              type="number"
+              value={form.salary}
+              onChange={(e) => set("salary", e.target.value)}
+              required
+            />
+            <SelectField
+              label="Currency"
+              value={form.currency}
+              onChange={(e) => set("currency", e.target.value)}
+            >
+              {CURRENCY_OPTIONS.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
             </SelectField>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <SelectField label="Experience Level" value={form.experienceLevel} onChange={(e) => set("experienceLevel", e.target.value)}>
-              {EXPERIENCE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            <SelectField
+              label="Experience Level"
+              value={form.experienceLevel}
+              onChange={(e) => set("experienceLevel", e.target.value)}
+            >
+              {EXPERIENCE_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
             </SelectField>
-            <SelectField label="Employment Type" value={form.employmentType} onChange={(e) => set("employmentType", e.target.value)}>
-              {EMPLOYMENT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            <SelectField
+              label="Employment Type"
+              value={form.employmentType}
+              onChange={(e) => set("employmentType", e.target.value)}
+            >
+              {EMPLOYMENT_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
             </SelectField>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <SelectField label="Work Setting" value={form.workSetting} onChange={(e) => set("workSetting", e.target.value)}>
-              {WORK_SETTING_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+            <SelectField
+              label="Work Setting"
+              value={form.workSetting}
+              onChange={(e) => set("workSetting", e.target.value)}
+            >
+              {WORK_SETTING_OPTIONS.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
             </SelectField>
-            <SelectField label="Company Size" value={form.companySize} onChange={(e) => set("companySize", e.target.value)}>
-              {COMPANY_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            <SelectField
+              label="Company Size"
+              value={form.companySize}
+              onChange={(e) => set("companySize", e.target.value)}
+            >
+              {COMPANY_SIZE_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
             </SelectField>
           </div>
 
-          <Field label="Work Year" type="number" value={form.workYear} onChange={(e) => set("workYear", e.target.value)} required />
+          <Field
+            label="Work Year"
+            type="number"
+            value={form.workYear}
+            onChange={(e) => set("workYear", e.target.value)}
+            required
+          />
 
           <div className="flex gap-3 pt-2">
             <button
@@ -154,7 +211,14 @@ function ReadOnly({ label, value }) {
   )
 }
 
-function Field({ label, type = "text", placeholder, value, onChange, required }) {
+function Field({
+  label,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  required,
+}) {
   return (
     <div className="space-y-1.5">
       <label className="text-[0.6875rem] uppercase tracking-widest font-bold text-on-surface-variant">

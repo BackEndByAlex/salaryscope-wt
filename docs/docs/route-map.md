@@ -42,7 +42,6 @@ src/lib/             ← Apollo Client instance, configured once
 
 ![Route Table](/img/diagrams/02-route-table.svg)
 
-
 | URL              | Page            | Feature                   | Who can access                                                |
 | ---------------- | --------------- | ------------------------- | ------------------------------------------------------------- |
 | `/`              | `Home.jsx`      | `landing/LandingPage`     | Everyone                                                      |

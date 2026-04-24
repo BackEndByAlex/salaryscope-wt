@@ -50,22 +50,27 @@ export default function DashboardPage() {
     setSelectedCity(null)
   }, [])
 
-  const handleAddClick = useCallback((countryName, cityName) => {
-    const countryId = getCountryIdByName(countryName)
-    setIsAddMode(false)
-    setPendingLocation({ countryName, countryId, cityName })
-  }, [getCountryIdByName])
+  const handleAddClick = useCallback(
+    (countryName, cityName) => {
+      const countryId = getCountryIdByName(countryName)
+      setIsAddMode(false)
+      setPendingLocation({ countryName, countryId, cityName })
+    },
+    [getCountryIdByName],
+  )
 
   const handleCreated = useCallback(() => {
     setPendingLocation(null)
     refetchCities()
   }, [refetchCities])
 
-  const handleSearchSelect = useCallback(({ countryId, countryName, cityId, cityName }) => {
-    if (countryId) setSelectedCountry({ id: countryId, name: countryName })
-    if (cityId) setSelectedCity({ id: cityId, name: cityName })
-  }, [])
-
+  const handleSearchSelect = useCallback(
+    ({ countryId, countryName, cityId, cityName }) => {
+      if (countryId) setSelectedCountry({ id: countryId, name: countryName })
+      if (cityId) setSelectedCity({ id: cityId, name: cityName })
+    },
+    [],
+  )
 
   return (
     <div className="h-screen flex flex-col bg-surface overflow-hidden">
@@ -102,7 +107,10 @@ export default function DashboardPage() {
                   : "bg-surface-container border border-outline-variant/30 text-on-surface hover:bg-surface-container-high"
               }`}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "1rem" }}
+              >
                 {isAddMode ? "close" : "add"}
               </span>
               {isAddMode ? "Cancel" : "Add Salary"}

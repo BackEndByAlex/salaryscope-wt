@@ -36,6 +36,7 @@ The `ProfileSidebar` receives a `recordCount` prop and shows it as the "Records 
 Shows salary records the logged-in user has submitted to the API. Fetches with `ME_WITH_RECORDS_QUERY` and `fetchPolicy: "network-only"` so the list is always fresh from the server, never served from cache.
 
 Each row shows:
+
 - Job title
 - City and country
 - Salary (formatted with currency)

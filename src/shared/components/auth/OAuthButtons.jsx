@@ -17,7 +17,9 @@ export default function OAuthButtons() {
   async function handleGoogleLogin() {
     const codeVerifier = generateCodeVerifier()
     const codeChallenge = await generateCodeChallenge(codeVerifier)
-    const { data } = await beginGoogle({ variables: { input: { codeChallenge } } })
+    const { data } = await beginGoogle({
+      variables: { input: { codeChallenge } },
+    })
     sessionStorage.setItem("oauth_code_verifier", codeVerifier)
     sessionStorage.setItem("oauth_provider", "google")
     window.location.href = data.beginGoogleLogin.authUrl
@@ -26,7 +28,9 @@ export default function OAuthButtons() {
   async function handleGithubLogin() {
     const codeVerifier = generateCodeVerifier()
     const codeChallenge = await generateCodeChallenge(codeVerifier)
-    const { data } = await beginGithub({ variables: { input: { codeChallenge } } })
+    const { data } = await beginGithub({
+      variables: { input: { codeChallenge } },
+    })
     sessionStorage.setItem("oauth_code_verifier", codeVerifier)
     sessionStorage.setItem("oauth_provider", "github")
     window.location.href = data.beginGithubLogin.authUrl

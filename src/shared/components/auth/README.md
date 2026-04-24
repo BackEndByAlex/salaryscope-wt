@@ -27,6 +27,7 @@ A labeled text input. Takes `label`, `type`, `value`, `onChange`, and an optiona
 "Sign in with Google" and "Sign in with GitHub" buttons. See [features/auth/README.md](../../../features/auth/README.md) for the full flow.
 
 In short — on click:
+
 1. Generates a PKCE pair (`pkce.js`)
 2. Calls `beginGoogleLogin` / `beginGithubLogin` mutation
 3. Stores `codeVerifier` + `provider` in `sessionStorage`

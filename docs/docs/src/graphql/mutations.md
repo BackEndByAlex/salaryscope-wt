@@ -32,6 +32,7 @@ These are called by `OAuthButtons` before the redirect happens.
 
 **`GOOGLE_LOGIN_MUTATION`** / **`GITHUB_LOGIN_MUTATION`**  
 Complete the OAuth flow after the callback. Takes `{ code, codeVerifier, state }`:
+
 - `code` — from the `?code=` URL param after the provider redirects back
 - `codeVerifier` — retrieved from `sessionStorage` (stored before the redirect)
 - `state` — from the `?state=` URL param, passed back so the API can verify it against the cookie

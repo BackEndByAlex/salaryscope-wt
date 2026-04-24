@@ -17,6 +17,7 @@ Import this anywhere you need to check authentication state. Never read the cont
 Manages all dashboard filter state by reading and writing URL search params. Filters are in the URL so they survive a page reload and can be copied as a link.
 
 It exposes:
+
 - `filters` — object with the current values: `{ experienceLevel[], workSetting[], employmentType[], workYear, companySize, companyId }`
 - `activeCount` — total number of active filter values (used for the badge on the filter button)
 - `toggle(key, value)` — adds or removes a value from a multi-select filter, or flips a single-value filter on/off
@@ -69,6 +70,7 @@ The position caches accumulate as the user pans — country dots that scroll off
 Event handlers returned to `GlobeMap`:
 
 **`handleMapLoad`**
+
 1. Saves the map instance
 2. Sets projection to globe mode
 3. Calls `discoverLayers(map)` to identify which Carto tile layers contain countries and cities

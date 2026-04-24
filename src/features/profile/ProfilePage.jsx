@@ -16,7 +16,9 @@ const FOOTER_LINKS = [
 ]
 
 export default function ProfilePage() {
-  const { data, loading } = useQuery(ME_WITH_RECORDS_QUERY, { fetchPolicy: "network-only" })
+  const { data, loading } = useQuery(ME_WITH_RECORDS_QUERY, {
+    fetchPolicy: "network-only",
+  })
   const user = data?.me ?? null
   const recordCount = data?.me?.salaryRecords?.length ?? 0
 
@@ -25,7 +27,11 @@ export default function ProfilePage() {
       <LandingNav />
 
       <main className="flex-1 flex gap-6 px-6 pt-28 pb-12 max-w-6xl mx-auto w-full">
-        <ProfileSidebar user={user} loading={loading} recordCount={recordCount} />
+        <ProfileSidebar
+          user={user}
+          loading={loading}
+          recordCount={recordCount}
+        />
 
         <div className="flex-1 space-y-6 min-w-0">
           <IdentityNodeCard user={user} loading={loading} />

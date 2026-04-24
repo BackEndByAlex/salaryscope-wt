@@ -50,10 +50,16 @@ export default function ChatPanel({ onClose }) {
       {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3 shrink-0"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", background: "#111318" }}
+        style={{
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: "#111318",
+        }}
       >
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-base" style={{ color: "#2563eb" }}>
+          <span
+            className="material-symbols-outlined text-base"
+            style={{ color: "#2563eb" }}
+          >
             smart_toy
           </span>
           <span className="text-sm font-bold text-white">SalaryScope AI</span>
@@ -71,7 +77,9 @@ export default function ChatPanel({ onClose }) {
               className="text-[0.65rem] transition-colors"
               style={{ color: "rgba(173,170,170,0.5)" }}
               onMouseEnter={(e) => (e.target.style.color = "#ffffff")}
-              onMouseLeave={(e) => (e.target.style.color = "rgba(173,170,170,0.5)")}
+              onMouseLeave={(e) =>
+                (e.target.style.color = "rgba(173,170,170,0.5)")
+              }
             >
               Clear
             </button>
@@ -83,10 +91,16 @@ export default function ChatPanel({ onClose }) {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3" style={{ scrollbarWidth: "thin" }}>
+      <div
+        className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
+        style={{ scrollbarWidth: "thin" }}
+      >
         {messages.length === 0 ? (
           <div className="space-y-4 pt-2">
-            <p className="text-xs text-center" style={{ color: "rgba(173,170,170,0.5)" }}>
+            <p
+              className="text-xs text-center"
+              style={{ color: "rgba(173,170,170,0.5)" }}
+            >
               Ask anything about salary data across 137k records.
             </p>
             <div className="space-y-2">
@@ -100,8 +114,13 @@ export default function ChatPanel({ onClose }) {
                     border: "1px solid rgba(255,255,255,0.08)",
                     color: "rgba(200,200,200,0.8)",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(37,99,235,0.12)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.04)")}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "rgba(37,99,235,0.12)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background =
+                      "rgba(255,255,255,0.04)")
+                  }
                 >
                   {s}
                 </button>
@@ -110,24 +129,37 @@ export default function ChatPanel({ onClose }) {
           </div>
         ) : (
           messages.map((m, i) => (
-            <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div
+              key={i}
+              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+            >
               <div
                 className="text-xs px-3 py-2 max-w-[85%]"
                 style={{
-                  borderRadius: m.role === "user" ? "12px 12px 2px 12px" : "12px 12px 12px 2px",
-                  background: m.role === "user" ? "#2563eb" : "rgba(255,255,255,0.06)",
-                  color: m.role === "user" ? "#ffffff" : "rgba(220,220,220,0.9)",
+                  borderRadius:
+                    m.role === "user"
+                      ? "12px 12px 2px 12px"
+                      : "12px 12px 12px 2px",
+                  background:
+                    m.role === "user" ? "#2563eb" : "rgba(255,255,255,0.06)",
+                  color:
+                    m.role === "user" ? "#ffffff" : "rgba(220,220,220,0.9)",
                   lineHeight: 1.5,
                   whiteSpace: "pre-wrap",
                 }}
               >
                 {m.content}
-                {m.role === "assistant" && streaming && i === messages.length - 1 && (
-                  <span
-                    className="inline-block ml-1 w-1.5 h-3 align-middle"
-                    style={{ background: "#2563eb", animation: "blink 1s step-end infinite" }}
-                  />
-                )}
+                {m.role === "assistant" &&
+                  streaming &&
+                  i === messages.length - 1 && (
+                    <span
+                      className="inline-block ml-1 w-1.5 h-3 align-middle"
+                      style={{
+                        background: "#2563eb",
+                        animation: "blink 1s step-end infinite",
+                      }}
+                    />
+                  )}
               </div>
             </div>
           ))
@@ -166,7 +198,9 @@ export default function ChatPanel({ onClose }) {
             opacity: !input.trim() || streaming ? 0.4 : 1,
           }}
         >
-          <span className="material-symbols-outlined text-sm text-white">send</span>
+          <span className="material-symbols-outlined text-sm text-white">
+            send
+          </span>
         </button>
       </form>
 

@@ -13,7 +13,11 @@ function memberSince(createdAt) {
 
 export default function ProfileSidebar({ user, loading, recordCount = 0 }) {
   const stats = [
-    { value: loading ? "…" : String(recordCount), color: "text-primary", label: "Records Contributed" },
+    {
+      value: loading ? "…" : String(recordCount),
+      color: "text-primary",
+      label: "Records Contributed",
+    },
     {
       value: loading ? "…" : memberSince(user?.createdAt),
       color: "text-secondary",

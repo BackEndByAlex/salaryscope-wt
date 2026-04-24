@@ -78,6 +78,7 @@ The sidebar is resizable — drag its left edge to make it wider or narrower.
 Opens after the user clicks a location on the globe in add mode. Pre-filled with the country name (read-only) and the city name detected by BigDataCloud.
 
 Fields:
+
 - **City** — text, pre-filled from geocoding, editable
 - **Job Title** — free text, triggers `findOrCreate` on the API
 - **Salary** — numeric

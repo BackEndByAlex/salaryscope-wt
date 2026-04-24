@@ -22,7 +22,7 @@ const COUNTRY_NAME_ALIASES = {
   "russian federation": "russia",
   "republic of korea": "south korea",
   "viet nam": "vietnam",
-  "czechia": "czech republic",
+  czechia: "czech republic",
   "islamic republic of iran": "iran",
   "bolivarian republic of venezuela": "venezuela",
   "plurinational state of bolivia": "bolivia",

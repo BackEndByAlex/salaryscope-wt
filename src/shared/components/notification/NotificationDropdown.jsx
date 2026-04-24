@@ -20,8 +20,12 @@ function relativeTime(timestamp) {
  * @param {{ onClose: () => void }} props
  */
 export default function NotificationDropdown({ onClose }) {
-  const { notifications, markAllRead, dismissNotification, clearAllNotifications } =
-    useToast()
+  const {
+    notifications,
+    markAllRead,
+    dismissNotification,
+    clearAllNotifications,
+  } = useToast()
 
   // Mark all read the moment the dropdown opens
   useEffect(() => {
@@ -32,7 +36,9 @@ export default function NotificationDropdown({ onClose }) {
     <div className="w-80 bg-surface-container border border-outline-variant/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-outline-variant/15">
-        <span className="text-sm font-semibold text-on-surface">Notifications</span>
+        <span className="text-sm font-semibold text-on-surface">
+          Notifications
+        </span>
         {notifications.length > 0 && (
           <button
             onClick={clearAllNotifications}
@@ -47,7 +53,9 @@ export default function NotificationDropdown({ onClose }) {
       <div className="max-h-96 overflow-y-auto">
         {notifications.length === 0 ? (
           <div className="flex items-center justify-center py-10">
-            <span className="text-sm text-on-surface-variant">No notifications yet</span>
+            <span className="text-sm text-on-surface-variant">
+              No notifications yet
+            </span>
           </div>
         ) : (
           notifications.map((n) => (
@@ -80,7 +88,9 @@ export default function NotificationDropdown({ onClose }) {
                 className="text-on-surface-variant hover:text-on-surface transition-colors shrink-0 mt-0.5"
                 aria-label="Dismiss notification"
               >
-                <span className="material-symbols-outlined text-[16px]">close</span>
+                <span className="material-symbols-outlined text-[16px]">
+                  close
+                </span>
               </button>
             </div>
           ))

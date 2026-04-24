@@ -169,8 +169,7 @@ export default function SalaryList({ countryId, cityId, filters = {} }) {
     () =>
       [...records].sort(
         (a, b) =>
-          (b.salaryInUsd ?? b.salary ?? -1) -
-          (a.salaryInUsd ?? a.salary ?? -1),
+          (b.salaryInUsd ?? b.salary ?? -1) - (a.salaryInUsd ?? a.salary ?? -1),
       ),
     [records],
   )

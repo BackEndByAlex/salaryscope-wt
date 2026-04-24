@@ -32,6 +32,7 @@ A "Load more" button calls `fetchMore` with the current offset, and the result i
 ## SalaryRow.jsx
 
 A single record in the salary list. Displays:
+
 - Job title (truncated if long)
 - Salary (right-aligned)
 - Experience level badge (color-coded by seniority)

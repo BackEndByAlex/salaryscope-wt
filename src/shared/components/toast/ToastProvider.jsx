@@ -25,7 +25,7 @@ export function ToastProvider({ children }) {
         ...prev,
       ])
     },
-    [dismiss]
+    [dismiss],
   )
 
   const success = useCallback((message) => add(message, "success"), [add])

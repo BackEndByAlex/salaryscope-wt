@@ -36,7 +36,8 @@ export default function DeleteAccountCard() {
           Permanently delete your account. This cannot be undone.
         </p>
         <p className="text-xs text-on-surface-variant">
-          Your salary records will remain in the dataset but will no longer be linked to your account.
+          Your salary records will remain in the dataset but will no longer be
+          linked to your account.
         </p>
 
         {!confirming ? (

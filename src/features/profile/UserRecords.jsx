@@ -15,8 +15,10 @@ const EXPERIENCE_LABELS = {
 function formatSalary(record) {
   const amount = record.salaryInUsd ?? record.salary
   if (amount == null) return "—"
-  const currency = record.salaryInUsd != null ? "USD" : (record.salaryCurrency ?? "")
-  const formatted = amount >= 1000 ? `${Math.round(amount / 1000)}k` : String(amount)
+  const currency =
+    record.salaryInUsd != null ? "USD" : (record.salaryCurrency ?? "")
+  const formatted =
+    amount >= 1000 ? `${Math.round(amount / 1000)}k` : String(amount)
   return currency ? `${formatted} ${currency}` : formatted
 }
 
