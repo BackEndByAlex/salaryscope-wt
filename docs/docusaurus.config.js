@@ -11,7 +11,7 @@ const config = {
   },
 
   url: "https://cu0080.camp.lnu.se",
-  baseUrl: "/docs/",
+  baseUrl: "/wt-docs/",
 
   onBrokenLinks: "warn",
 
