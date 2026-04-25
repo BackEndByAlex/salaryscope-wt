@@ -13,6 +13,6 @@ shared/
 └── components/   reusable UI components, organized by type
 ```
 
-→ [hooks/README.md](./hooks/README.md)  
-→ [map/README.md](./map/README.md)  
-→ [components/README.md](./components/README.md)
+→ [Hooks](./hooks/README.md)  
+→ [Map](./map/README.md)  
+→ [Components](./components/README.md)

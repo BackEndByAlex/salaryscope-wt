@@ -69,10 +69,10 @@ The right panel. Slides in from the right when a country or city is clicked on t
 Two sections:
 
 **1. Breakdown stats** (top)  
-Fires `COUNTRY_SIDEBAR_QUERY` or `CITY_SIDEBAR_QUERY` for the selected location. Shows total record count plus splits by experience level and work setting.
+Fires `COUNTRY_SIDEBAR_QUERY` or `CITY_SIDEBAR_QUERY` for the selected location. Shows total record count plus splits by experience level and work setting. These counts respect the selected region but not the active filters — they give a full picture of what data exists.
 
 **2. Salary records** (bottom)  
-Renders `SalaryList` with the selected country/city ID and all active filters.
+Renders `SalaryList` with the selected country/city ID and all active filters. This is the paginated list of actual records, filtered to match what the user selected.
 
 The sidebar is resizable — drag its left edge to make it wider or narrower.
 
@@ -82,9 +82,19 @@ The sidebar is resizable — drag its left edge to make it wider or narrower.
 
 Opens after the user clicks a location on the globe in add mode. Pre-filled with the country name (read-only) and the city name detected by BigDataCloud.
 
-Fields: City, Job Title, Salary, Currency, Experience Level, Employment Type, Work Setting, Company Size, Work Year.
+Fields:
 
-Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle` and `cityName` instead of IDs — the API handles `findOrCreate` for both.
+- **City** — text, pre-filled from geocoding, editable
+- **Job Title** — free text, triggers `findOrCreate` on the API
+- **Salary** — numeric
+- **Currency** — text
+- **Experience Level** — EN / MI / SE / EX
+- **Employment Type** — FT / PT / CT / FL
+- **Work Setting** — Remote / Hybrid / In-Person
+- **Company Size** — S / M / L
+- **Work Year** — numeric
+
+Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle` and `cityName` instead of IDs — the API handles `findOrCreate` for both. On success calls `onCreated()` which closes the modal and triggers `refetchCities()`.
 
 ---
 
@@ -92,9 +102,9 @@ Calls `CREATE_SALARY_RECORD` with `source: "user_submitted"`, passing `jobTitle`
 
 Opens from the Profile page when the user clicks "Edit" on one of their salary records.
 
-Country, city, and job title are read-only — they cannot be changed after submission. All other fields are editable.
+Country, city, and job title are read-only — they cannot be changed after submission. All other fields (salary, currency, experience level, employment type, work setting, company size, work year) are editable.
 
-Calls `UPDATE_SALARY_RECORD` with only the changed fields.
+Calls `UPDATE_SALARY_RECORD` with only the changed fields. On success calls `onUpdated()` to refresh the record list.
 
 ---
 

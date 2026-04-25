@@ -28,5 +28,5 @@ graphql/
 └── mutation/    write operations — auth (login, register, OAuth)
 ```
 
-→ [queries/README.md](./queries/README.md)  
-→ [mutation/README.md](./mutation/README.md)
+→ [Queries](./queries/README.md)  
+→ [Mutations](./mutation/README.md)

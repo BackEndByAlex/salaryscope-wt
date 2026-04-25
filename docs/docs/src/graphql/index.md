@@ -32,3 +32,6 @@ graphql/
 ├── queries/     read operations — fetch data from the API
 └── mutation/    write operations — auth (login, register, OAuth)
 ```
+
+→ [Queries](./queries)  
+→ [Mutations](./mutations)

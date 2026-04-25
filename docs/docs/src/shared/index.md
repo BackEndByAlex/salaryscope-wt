@@ -17,3 +17,7 @@ shared/
 ├── map/          MapLibre GL setup — constants, layers, utility functions
 └── components/   reusable UI components, organized by type
 ```
+
+→ [Hooks](./hooks)  
+→ [Map](./map)  
+→ [Components](./components/index)

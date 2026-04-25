@@ -13,11 +13,11 @@ MapLibre GL configuration for the globe — constants, layer definitions, and th
 
 Values shared across the map module:
 
-**`CARTO_DARK`** — the Carto dark-matter base map style URL. Controls what the globe looks like before any data is overlaid.
+**`CARTO_DARK`** — the Carto dark-matter base map style URL. This controls what the globe looks like before any data is overlaid.
 
 **`INITIAL_VIEW`** — `{ longitude: 0, latitude: 20, zoom: 1.5 }` — the camera position when the map first loads. Centered at 0°/20° so the Atlantic is visible and no single country dominates.
 
-**`CITY_ZOOM_THRESHOLD`** — `3.0`. Below this zoom level only country dots are shown. At or above it, city dots appear and the city data fetch fires.
+**`CITY_ZOOM_THRESHOLD`** — `3.0`. Below this zoom level only country dots are shown. At or above it, city dots appear and the city data fetch fires. Controls the zoom at which the map switches resolution.
 
 **`EMPTY_GEOJSON`** — an empty `FeatureCollection`. Used as the default value for `countryGeoJSON` and `cityGeoJSON` before any data loads, so the GeoJSON source always has a valid value.
 
@@ -38,19 +38,25 @@ These layer objects are passed to the map instance when it loads and updated whe
 
 ## utils.js
 
-Helper functions that power `useGlobeData`. All pure transformations — no state.
+Helper functions that power `useGlobeData`. None of these functions hold state — they are pure transformations called from the hook.
 
-**`discoverLayers(map)`** — inspects the loaded style layers to find which ones come from Carto's country and city tile sources. Writes the found layer names into `CARTO_COUNTRY_LAYERS` / `CARTO_CITY_LAYERS`. Called once on `handleMapLoad`.
+**`discoverLayers(map)`**  
+Inspects the loaded style layers to find which ones come from Carto's country and city tile sources. Writes the found layer names into `CARTO_COUNTRY_LAYERS` / `CARTO_CITY_LAYERS`. Called once on `handleMapLoad`.
 
-**`buildCountryIndex(countries)`** — takes the API's country list and returns a `Map<normalizedName, countryRecord>`. The normalized name matches how Carto labels features in tiles, so lookups are a single map get.
+**`buildCountryIndex(countries)`**  
+Takes the API's country list and returns a `Map<normalizedName, countryRecord>`. The normalized name matches how Carto labels features in tiles, so lookups are a single map get.
 
-**`buildCityIndex(cities)`** — same pattern for cities.
+**`buildCityIndex(cities)`**  
+Same pattern for cities.
 
-**`extractCountryGeoJSON(map, index)`** — calls `map.queryRenderedFeatures(null, { layers: CARTO_COUNTRY_LAYERS })` to get currently visible tile features, matches each to the country index, and returns a GeoJSON `FeatureCollection`.
+**`extractCountryGeoJSON(map, index)`**  
+Calls `map.queryRenderedFeatures(null, { layers: CARTO_COUNTRY_LAYERS })` to get currently visible tile features, matches each to the country index, and returns a GeoJSON `FeatureCollection` with `id` and `name` attached as feature properties. Called on every `idle` event.
 
-**`buildCityGeoJSONFromCache(positionCache, index)`** — builds city GeoJSON from the accumulated position cache (not just currently visible tiles). This is why city dots don't disappear when the user pans — positions are remembered once seen.
+**`buildCityGeoJSONFromCache(positionCache, index)`**  
+Builds city GeoJSON from the accumulated position cache (not just currently visible tiles). This is why city dots don't disappear when the user pans — positions are remembered once seen.
 
-**`findFocusedCountry(positionCache, center)`** — finds the country in the position cache whose recorded coordinates are closest to the current map center. Used by `handleMoveEnd` to determine which country's cities to fetch next.
+**`findFocusedCountry(positionCache, center)`**  
+Finds the country in the position cache whose recorded coordinates are closest to the current map center. Used by `handleMoveEnd` to determine which country's cities to fetch next.
 
 ---
 
