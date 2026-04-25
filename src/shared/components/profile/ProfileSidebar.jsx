@@ -26,7 +26,7 @@ export default function ProfileSidebar({ user, loading, recordCount = 0 }) {
   ]
 
   return (
-    <aside className="w-80 shrink-0 sticky top-20 self-start bg-surface-container-low p-6 space-y-6">
+    <aside className="w-full md:w-80 md:shrink-0 md:sticky md:top-20 md:self-start bg-surface-container-low p-6 space-y-6">
       <div className="space-y-3">
         <div
           className="h-20 w-20 rounded-lg bg-surface-container-highest border border-outline-variant/15 flex items-center justify-center"

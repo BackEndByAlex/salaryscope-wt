@@ -269,6 +269,8 @@ export default function DashboardFilterSidebar({
   selectedCountryId,
   selectedCityId,
   onSearchSelect,
+  isOpen,
+  onClose,
 }) {
   const { width, handlePointerDown } = useResizable({
     defaultWidth: 224,
@@ -303,7 +305,14 @@ export default function DashboardFilterSidebar({
 
   return (
     <aside
-      className="shrink-0 flex flex-col filter-scrollbar relative"
+      className={[
+        "flex flex-col filter-scrollbar",
+        // Mobile: fixed drawer that slides in/out
+        "fixed inset-y-0 left-0 z-40 transition-transform duration-300 md:transition-none",
+        isOpen ? "translate-x-0" : "-translate-x-full",
+        // Desktop: static inline, always visible
+        "md:static md:translate-x-0 md:z-auto md:shrink-0",
+      ].join(" ")}
       style={{
         width,
         background: "#1a1d23",
@@ -344,21 +353,32 @@ export default function DashboardFilterSidebar({
             </span>
           )}
         </div>
-        {activeCount > 0 && (
+        <div className="flex items-center gap-2">
+          {activeCount > 0 && (
+            <button
+              onClick={onClear}
+              className="text-[0.6875rem] transition-colors"
+              style={{ color: "rgba(173,170,170,0.6)" }}
+              onMouseEnter={(e) => {
+                e.target.style.color = "#ffffff"
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = "rgba(173,170,170,0.6)"
+              }}
+            >
+              Clear
+            </button>
+          )}
+          {/* Close button — mobile only */}
           <button
-            onClick={onClear}
-            className="text-[0.6875rem] transition-colors"
+            onClick={onClose}
+            className="md:hidden p-1 rounded transition-colors"
             style={{ color: "rgba(173,170,170,0.6)" }}
-            onMouseEnter={(e) => {
-              e.target.style.color = "#ffffff"
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = "rgba(173,170,170,0.6)"
-            }}
+            aria-label="Close filters"
           >
-            Clear
+            <span className="material-symbols-outlined text-base">close</span>
           </button>
-        )}
+        </div>
       </div>
 
       {/* ── Search ── */}

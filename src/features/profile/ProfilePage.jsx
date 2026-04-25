@@ -27,7 +27,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-surface flex flex-col">
       <LandingNav />
 
-      <main className="flex-1 flex gap-6 px-6 pt-28 pb-12 max-w-6xl mx-auto w-full">
+      <main className="flex-1 flex flex-col md:flex-row gap-6 px-4 md:px-6 pt-24 md:pt-28 pb-12 max-w-6xl mx-auto w-full">
         <ProfileSidebar
           user={user}
           loading={loading}

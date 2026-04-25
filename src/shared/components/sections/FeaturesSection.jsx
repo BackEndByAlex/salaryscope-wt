@@ -159,7 +159,7 @@ function TerminalCard({ records }) {
   const doubled = [...items, ...items]
 
   return (
-    <div className="bg-surface-container p-6 flex flex-col border-l-2 border-primary overflow-hidden relative">
+    <div className="bg-surface-container p-6 flex flex-col border-l-2 border-primary overflow-hidden relative h-80 md:h-auto">
       <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none" />
 
       <div className="relative z-10 flex items-center gap-3 mb-4 shrink-0">
