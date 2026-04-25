@@ -74,7 +74,7 @@ export default function DashboardPage() {
   )
 
   return (
-    <div className="h-screen flex flex-col bg-surface overflow-hidden">
+    <div className="h-dvh flex flex-col bg-surface overflow-hidden">
       <LandingNav />
 
       <main className="flex-1 pt-16 flex overflow-hidden">
