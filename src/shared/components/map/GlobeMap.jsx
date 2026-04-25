@@ -2,7 +2,7 @@ import { useRef, useState, useCallback } from "react"
 import MapGL, { Source, Layer } from "react-map-gl/maplibre"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { CARTO_DARK, INITIAL_VIEW } from "../../map/constants.js"
-import { reverseGeocode } from "../utils/reverseGeocode.js"
+import { reverseGeocode } from "../../utils/reverseGeocode.js"
 import {
   countryCircleLayer,
   countryNameLayer,
