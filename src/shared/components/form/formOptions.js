@@ -1,3 +1,15 @@
+// Handles both normalised codes ("EN") and raw CSV strings ("Entry-level")
+export const EXPERIENCE_LABELS = {
+  EN: "Entry",
+  "Entry-level": "Entry",
+  MI: "Mid",
+  "Mid-level": "Mid",
+  SE: "Senior",
+  Senior: "Senior",
+  EX: "Executive",
+  Executive: "Executive",
+}
+
 export const EXPERIENCE_OPTIONS = [
   { value: "EN", label: "Entry-level" },
   { value: "MI", label: "Mid-level" },

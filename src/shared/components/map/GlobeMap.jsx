@@ -2,6 +2,7 @@ import { useRef, useState, useCallback } from "react"
 import MapGL, { Source, Layer } from "react-map-gl/maplibre"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { CARTO_DARK, INITIAL_VIEW } from "../../map/constants.js"
+import { reverseGeocode } from "../utils/reverseGeocode.js"
 import {
   countryCircleLayer,
   countryNameLayer,
@@ -31,19 +32,9 @@ export default function GlobeMap({
     async (e) => {
       if (isAddMode) {
         const { lat, lng } = e.lngLat
-        try {
-          const res = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`,
-          )
-          const data = await res.json()
-          const cityName = data.city || data.locality || ""
-          const countryName = data.countryName || ""
-          if (!countryName) return
-
-          onAddClick?.(countryName, cityName, [lng, lat])
-        } catch {
-          // network error — ignore silently
-        }
+        const location = await reverseGeocode(lat, lng)
+        if (!location?.countryName) return
+        onAddClick?.(location.countryName, location.cityName, [lng, lat])
         return
       }
 

@@ -1,11 +1,5 @@
 import { useRef } from "react"
-
-function formatSalary(usd) {
-  if (usd == null) return "—"
-  if (usd >= 1_000_000) return `$${(usd / 1_000_000).toFixed(1)}M`
-  if (usd >= 1000) return `$${Math.round(usd / 1000)}k`
-  return `$${usd}`
-}
+import { formatSalaryAmount } from "../../utils/salary.js"
 
 export default function SalaryRangeSlider({ dataMin, dataMax, lo, hi, onChange }) {
   const trackRef = useRef(null)
@@ -58,7 +52,7 @@ export default function SalaryRangeSlider({ dataMin, dataMax, lo, hi, onChange }
           className="text-[0.6rem] tabular-nums font-bold"
           style={{ color: "#2563eb" }}
         >
-          {formatSalary(lo)}
+          {formatSalaryAmount(lo)}
         </span>
         <span
           className="text-[0.6rem] uppercase tracking-widest"
@@ -70,7 +64,7 @@ export default function SalaryRangeSlider({ dataMin, dataMax, lo, hi, onChange }
           className="text-[0.6rem] tabular-nums font-bold"
           style={{ color: "#2563eb" }}
         >
-          {formatSalary(hi)}
+          {formatSalaryAmount(hi)}
         </span>
       </div>
 

@@ -1,7 +1,16 @@
 import { useSearchParams } from "react-router"
 
+export const FILTER_KEYS = {
+  exp: "exp",
+  setting: "setting",
+  type: "type",
+  year: "year",
+  size: "size",
+  company: "company",
+}
+
 // These keys store comma-separated multi-select values
-const MULTI_KEYS = new Set(["exp", "setting", "type"])
+const MULTI_KEYS = new Set([FILTER_KEYS.exp, FILTER_KEYS.setting, FILTER_KEYS.type])
 
 function getArray(searchParams, key) {
   return searchParams.get(key)?.split(",").filter(Boolean) ?? []
@@ -11,14 +20,14 @@ export function useDashboardFilters() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const filters = {
-    experienceLevel: getArray(searchParams, "exp"),
-    workSetting: getArray(searchParams, "setting"),
-    employmentType: getArray(searchParams, "type"),
-    workYear: searchParams.get("year")
-      ? parseInt(searchParams.get("year"))
+    experienceLevel: getArray(searchParams, FILTER_KEYS.exp),
+    workSetting: getArray(searchParams, FILTER_KEYS.setting),
+    employmentType: getArray(searchParams, FILTER_KEYS.type),
+    workYear: searchParams.get(FILTER_KEYS.year)
+      ? parseInt(searchParams.get(FILTER_KEYS.year))
       : null,
-    companySize: searchParams.get("size") || null,
-    companyId: searchParams.get("company") || null,
+    companySize: searchParams.get(FILTER_KEYS.size) || null,
+    companyId: searchParams.get(FILTER_KEYS.company) || null,
   }
 
   const activeCount =

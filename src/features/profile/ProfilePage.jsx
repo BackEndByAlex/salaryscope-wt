@@ -21,7 +21,8 @@ export default function ProfilePage() {
     fetchPolicy: "network-only",
   })
   const user = data?.me ?? null
-  const recordCount = data?.me?.salaryRecords?.length ?? 0
+  const records = data?.me?.salaryRecords ?? []
+  const recordCount = records.length
 
   return (
     <div className="min-h-screen bg-surface flex flex-col">
@@ -37,7 +38,7 @@ export default function ProfilePage() {
         <div className="flex-1 space-y-6 min-w-0">
           <IdentityNodeCard user={user} loading={loading} />
           <ConnectedProtocolsCard user={user} loading={loading} />
-          <UserRecords />
+          <UserRecords records={records} loading={loading} />
           <DeleteAccountCard />
         </div>
       </main>

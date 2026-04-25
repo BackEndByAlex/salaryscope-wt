@@ -1,33 +1,14 @@
 import { useState } from "react"
-import { useQuery, useMutation } from "@apollo/client/react"
+import { useMutation } from "@apollo/client/react"
 import { ME_WITH_RECORDS_QUERY } from "../../graphql/queries/auth.js"
 import { DELETE_SALARY_RECORD } from "../../graphql/mutation/salaryRecords.js"
 import EditRecordModal from "../dashboard/EditRecordModal.jsx"
 import { useToast } from "../../shared/components/toast/ToastProvider.jsx"
+import { formatSalaryRecord } from "../../shared/utils/salary.js"
 
-const EXPERIENCE_LABELS = {
-  EN: "Entry-level",
-  MI: "Mid-level",
-  SE: "Senior",
-  EX: "Executive",
-}
-
-function formatSalary(record) {
-  const amount = record.salaryInUsd ?? record.salary
-  if (amount == null) return "—"
-  const currency =
-    record.salaryInUsd != null ? "USD" : (record.salaryCurrency ?? "")
-  const formatted =
-    amount >= 1000 ? `${Math.round(amount / 1000)}k` : String(amount)
-  return currency ? `${formatted} ${currency}` : formatted
-}
-
-export default function UserRecords() {
+export default function UserRecords({ records = [], loading }) {
   const toast = useToast()
 
-  const { data, loading } = useQuery(ME_WITH_RECORDS_QUERY, {
-    fetchPolicy: "network-only",
-  })
   const [deleteRecord] = useMutation(DELETE_SALARY_RECORD, {
     refetchQueries: [{ query: ME_WITH_RECORDS_QUERY }],
     onCompleted: () => toast.success("Record deleted"),
@@ -36,8 +17,6 @@ export default function UserRecords() {
 
   const [editingRecord, setEditingRecord] = useState(null)
   const [confirmDeleteId, setConfirmDeleteId] = useState(null)
-
-  const records = data?.me?.salaryRecords ?? []
 
   async function handleDelete(id) {
     await deleteRecord({ variables: { id } })
@@ -94,7 +73,7 @@ export default function UserRecords() {
 
               <div className="flex items-center gap-3 ml-4 shrink-0">
                 <span className="text-primary font-black text-sm">
-                  {formatSalary(record)}
+                  {formatSalaryRecord(record)}
                 </span>
 
                 {confirmDeleteId === record.id ? (

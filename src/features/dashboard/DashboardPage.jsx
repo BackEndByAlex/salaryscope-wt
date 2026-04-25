@@ -1,6 +1,9 @@
 import { useState, useCallback } from "react"
 import LandingNav from "../../shared/components/navigation/LandingNav.jsx"
 import GlobeMap from "../../shared/components/map/GlobeMap.jsx"
+import MobileFilterToggle from "../../shared/components/dashboard/MobileFilterToggle.jsx"
+import AddModeBanner from "../../shared/components/dashboard/AddModeBanner.jsx"
+import AddSalaryButton from "../../shared/components/dashboard/AddSalaryButton.jsx"
 import DashboardSidebar from "./DashboardSidebar.jsx"
 import DashboardFilterSidebar from "./DashboardFilterSidebar.jsx"
 import CreateRecordModal from "./CreateRecordModal.jsx"
@@ -86,7 +89,6 @@ export default function DashboardPage() {
           />
         )}
 
-        {/* Left — filter sidebar */}
         <DashboardFilterSidebar
           filters={filters}
           activeCount={activeCount}
@@ -99,50 +101,19 @@ export default function DashboardPage() {
           onClose={() => setFilterOpen(false)}
         />
 
-        {/* Center — globe, right sidebar overlays on top */}
         <div className="flex-1 relative">
-          {/* Mobile filter toggle button */}
-          <button
+          <MobileFilterToggle
             onClick={() => setFilterOpen(true)}
-            className="md:hidden absolute top-3 left-3 z-10 flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-full shadow-lg bg-surface-container border border-outline-variant/30 text-on-surface"
-          >
-            <span className="material-symbols-outlined text-sm">tune</span>
-            Filters
-            {activeCount > 0 && (
-              <span
-                className="text-[0.6rem] font-black px-1.5 py-0.5 rounded-sm"
-                style={{ background: "#2563eb", color: "#ffffff" }}
-              >
-                {activeCount}
-              </span>
-            )}
-          </button>
+            activeCount={activeCount}
+          />
 
-          {/* Add mode banner */}
-          {isAddMode && (
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 bg-primary/90 text-on-primary text-xs px-4 py-2 rounded-full backdrop-blur-sm pointer-events-none">
-              Click anywhere on the map to add your salary
-            </div>
-          )}
+          {isAddMode && <AddModeBanner />}
 
-          {/* Add salary button — authenticated users only */}
           {user && (
-            <button
+            <AddSalaryButton
+              isAddMode={isAddMode}
               onClick={() => setIsAddMode((v) => !v)}
-              className={`absolute bottom-6 left-3 md:left-auto md:right-20 z-10 flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all shadow-lg ${
-                isAddMode
-                  ? "bg-primary text-on-primary"
-                  : "bg-surface-container border border-outline-variant/30 text-on-surface hover:bg-surface-container-high"
-              }`}
-            >
-              <span
-                className="material-symbols-outlined"
-                style={{ fontSize: "1rem" }}
-              >
-                {isAddMode ? "close" : "add"}
-              </span>
-              {isAddMode ? "Cancel" : "Add Salary"}
-            </button>
+            />
           )}
 
           <GlobeMap

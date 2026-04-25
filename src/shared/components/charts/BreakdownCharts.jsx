@@ -38,8 +38,8 @@ function DonutChart({ data, colors, title, subtitle }) {
             paddingAngle={2}
             dataKey="value"
           >
-            {data.map((_, i) => (
-              <Cell key={i} fill={colors[i % colors.length]} stroke="none" />
+            {data.map((entry, i) => (
+              <Cell key={entry.name} fill={colors[i % colors.length]} stroke="none" />
             ))}
           </Pie>
           <Tooltip

@@ -26,12 +26,11 @@ export function useSearch() {
   }, [debouncedQuery, search])
 
   const results = data?.searchRecords?.records ?? []
-  const totalCount = data?.searchRecords?.totalCount ?? 0
 
   function clear() {
     setQuery("")
     setDebouncedQuery("")
   }
 
-  return { query, setQuery, results, totalCount, loading, clear }
+  return { query, setQuery, results, loading, clear }
 }
