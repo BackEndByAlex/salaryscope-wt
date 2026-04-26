@@ -36,10 +36,10 @@ For a VG grade, integrate **one** AI/ML feature into the application. Pick one b
 
 | Option                                                        | Status               |
 | ------------------------------------------------------------- | -------------------- |
-| Semantic Search — natural language queries matched by meaning | :white_large_square: |
+| Semantic Search — natural language queries matched by meaning | ✔️                  |
 | Content-Based Recommendations — "items similar to this one"   | :white_large_square: |
 | Sentiment Analysis — analyze and visualize text sentiment     | :white_large_square: |
-| Text Summarization / Generation — LLM-powered summaries       | :white_large_square: |
+| Text Summarization / Generation — LLM-powered summaries       | ✔️                   |
 | Clustering & Grouping — auto-group similar items visually     | :white_large_square: |
 | RAG — natural language Q&A grounded in your dataset           | :white_large_square: |
 | Other: _describe_                                             | :white_large_square: |
