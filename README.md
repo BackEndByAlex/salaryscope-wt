@@ -175,5 +175,5 @@ AI Chat Assistant — A floating chat widget powered by the Groq LLM API allows 
   - Used for documentation language and writing assistance
 - [Figma](https://figma.com)
   - Manual UI/UX design and layout planning
-- [Claude](https://www.anthropic.com/news/claude-design-anthropic-labs)
+- [Claude Design](https://www.anthropic.com/news/claude-design-anthropic-labs)
   - Design examples for small visual details such as map dots and visual improvements
