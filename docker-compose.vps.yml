@@ -1,0 +1,36 @@
+# VPS deployment — frontend + WT docs
+#
+# Run after the API stack (docker-compose.vps.yml in salaryscope/) is up.
+#
+# First-time start:
+#   docker compose -f docker-compose.vps.yml up -d --build
+#
+# Updates:
+#   git pull
+#   docker compose -f docker-compose.vps.yml up -d --build
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_GRAPHQL_URL: ${VITE_GRAPHQL_URL}
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_GITHUB_CLIENT_ID: ${VITE_GITHUB_CLIENT_ID}
+        VITE_GITHUB_REDIRECT_URI: ${VITE_GITHUB_REDIRECT_URI}
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
+        VITE_GOOGLE_REDIRECT_URI: ${VITE_GOOGLE_REDIRECT_URI}
+    container_name: salaryscope-frontend
+    restart: always
+    ports:
+      - "127.0.0.1:3001:3001"
+
+  wt-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile.docs
+    container_name: salaryscope-wt-docs
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:8080"
