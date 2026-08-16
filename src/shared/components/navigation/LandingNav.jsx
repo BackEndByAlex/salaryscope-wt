@@ -4,11 +4,14 @@ import Logo from "../Logo.jsx"
 import UserMenu from "./UserMenu.jsx"
 import NotificationDropdown from "../notification/NotificationDropdown.jsx"
 import { useToast } from "../toast/ToastProvider.jsx"
+import { getApiBaseUrl } from "../../../lib/urls.js"
 
 const NAV_LINKS = [
   { label: "Analytics", to: "/analytics", internal: true },
   { label: "WT Docs", href: "/wt-docs" },
 ]
+
+const API_BASE_URL = getApiBaseUrl()
 
 export default function LandingNav() {
   const [bellOpen, setBellOpen] = useState(false)
@@ -54,7 +57,7 @@ export default function LandingNav() {
               WT Docs
             </a>
             <a
-              href={`${import.meta.env.VITE_API_URL}/api-docs`}
+              href={`${API_BASE_URL}/api-docs`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-on-surface-variant hover:text-on-surface text-sm transition-colors"
@@ -134,7 +137,7 @@ export default function LandingNav() {
               WT Docs
             </a>
             <a
-              href={`${import.meta.env.VITE_API_URL}/api-docs`}
+              href={`${API_BASE_URL}/api-docs`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}

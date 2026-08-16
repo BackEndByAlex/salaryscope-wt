@@ -1,5 +1,6 @@
 import { useRef, useCallback } from "react"
 import Map from "react-map-gl/maplibre"
+import { getMapLibre } from "../../lib/maplibre.js"
 
 const MAP_STYLE =
   "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
@@ -9,6 +10,8 @@ const INITIAL_VIEW = {
   latitude: 45,
   zoom: 3.5,
 }
+
+const mapLib = getMapLibre()
 
 export default function HeroSection() {
   const animationRef = useRef(null)
@@ -41,6 +44,7 @@ export default function HeroSection() {
       }}
     >
       <Map
+        mapLib={mapLib}
         initialViewState={INITIAL_VIEW}
         style={{ width: "100%", height: "100%" }}
         mapStyle={MAP_STYLE}

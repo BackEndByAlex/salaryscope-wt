@@ -4,6 +4,9 @@ import StatsSection from "../../shared/components/sections/StatsSection.jsx"
 import FeaturesSection from "../../shared/components/sections/FeaturesSection.jsx"
 import CtaSection from "../../shared/components/sections/CtaSection.jsx"
 import AppFooter from "../../shared/components/layout/AppFooter.jsx"
+import { getApiBaseUrl } from "../../lib/urls.js"
+
+const API_BASE_URL = getApiBaseUrl()
 
 export default function LandingPage() {
   return (
@@ -20,7 +23,7 @@ export default function LandingPage() {
         links={[
           { label: "Gitlab Source", href: "#" },
           { label: "WT Docs", href: "/wt-docs" },
-          { label: "API Docs", href: `${import.meta.env.VITE_API_URL}/api-docs` },
+          { label: "API Docs", href: `${API_BASE_URL}/api-docs` },
           { label: "Apollo", href: import.meta.env.VITE_GRAPHQL_URL },
         ]}
       />

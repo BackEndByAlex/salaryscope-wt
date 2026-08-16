@@ -7,12 +7,15 @@ import ConnectedProtocolsCard from "../../shared/components/profile/ConnectedPro
 import UserRecords from "./UserRecords.jsx"
 import DeleteAccountCard from "../../shared/components/profile/DeleteAccountCard.jsx"
 import { ME_WITH_RECORDS_QUERY } from "../../graphql/queries/auth.js"
+import { getApiBaseUrl } from "../../lib/urls.js"
+
+const API_BASE_URL = getApiBaseUrl()
 
 const FOOTER_LINKS = [
   { label: "Privacy", href: "#" },
   { label: "Terms", href: "#" },
   { label: "WT Docs", href: "/wt-docs" },
-  { label: "API Docs", href: `${import.meta.env.VITE_API_URL}/api-docs` },
+  { label: "API Docs", href: `${API_BASE_URL}/api-docs` },
   { label: "Apollo", href: import.meta.env.VITE_GRAPHQL_URL },
 ]
 

@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from "react"
 import MapGL, { Source, Layer } from "react-map-gl/maplibre"
 import "maplibre-gl/dist/maplibre-gl.css"
+import { getMapLibre } from "../../../lib/maplibre.js"
 import { CARTO_DARK, INITIAL_VIEW } from "../../map/constants.js"
 import { reverseGeocode } from "../../utils/reverseGeocode.js"
 import {
@@ -13,6 +14,7 @@ import {
 } from "../../map/layers.js"
 
 const INTERACTIVE_LAYERS = ["country-circles", "city-circles"]
+const mapLib = getMapLibre()
 
 export default function GlobeMap({
   countryGeoJSON,
@@ -67,6 +69,7 @@ export default function GlobeMap({
 
   return (
     <MapGL
+      mapLib={mapLib}
       ref={mapRef}
       initialViewState={INITIAL_VIEW}
       mapStyle={CARTO_DARK}
