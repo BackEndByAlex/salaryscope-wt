@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [error, setError] = useState(null)
 
   const navigate = useNavigate()
-  const { completeAuth } = useAuth()
+  const { setUser } = useAuth()
   const [login, { loading }] = useMutation(LOGIN_MUTATION)
 
   async function handleSubmit(e) {
@@ -23,7 +23,7 @@ export default function LoginPage() {
       const { data } = await login({
         variables: { input: { email, password } },
       })
-      await completeAuth(data.login.user)
+      setUser(data.login.user)
       navigate("/dashboard")
     } catch (err) {
       setError(err.message)

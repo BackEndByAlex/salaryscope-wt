@@ -14,7 +14,7 @@ export default function RegisterPage() {
   const [error, setError] = useState(null)
 
   const navigate = useNavigate()
-  const { completeAuth } = useAuth()
+  const { setUser } = useAuth()
   const [register, { loading }] = useMutation(REGISTER_MUTATION)
 
   async function handleSubmit(e) {
@@ -30,7 +30,7 @@ export default function RegisterPage() {
       const { data } = await register({
         variables: { input: { email, password } },
       })
-      await completeAuth(data.register.user)
+      setUser(data.register.user)
       navigate("/dashboard")
     } catch (err) {
       setError(err.message)

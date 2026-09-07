@@ -10,7 +10,7 @@ export default function DeleteAccountCard() {
   const [confirming, setConfirming] = useState(false)
   const [deleteAccount, { loading }] = useMutation(DELETE_ACCOUNT_MUTATION)
   const apolloClient = useApolloClient()
-  const { clearAuth } = useAuth()
+  const { setUser } = useAuth()
   const navigate = useNavigate()
   const toast = useToast()
 
@@ -18,7 +18,7 @@ export default function DeleteAccountCard() {
     try {
       await deleteAccount()
       await apolloClient.clearStore()
-      clearAuth()
+      setUser(null)
       navigate("/")
     } catch {
       toast.error("Failed to delete account")
