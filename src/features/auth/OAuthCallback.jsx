@@ -11,7 +11,7 @@ export default function OAuthCallback() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const apolloClient = useApolloClient()
-  const { setUser } = useAuth()
+  const { completeAuth } = useAuth()
   const called = useRef(false)
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function OAuthCallback() {
           mutation,
           variables: { input: { code, codeVerifier, state } },
         })
-        setUser(data[resultKey].user)
+        await completeAuth(data[resultKey].user)
         navigate("/dashboard", { replace: true })
       } catch (err) {
         navigate(`/login?error=${encodeURIComponent(err.message)}`, {

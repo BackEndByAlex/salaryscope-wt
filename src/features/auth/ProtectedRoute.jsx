@@ -2,9 +2,9 @@ import { Navigate } from "react-router"
 import { useAuth } from "./useAuth.js"
 
 export default function ProtectedRoute({ children }) {
-  const { user, loading } = useAuth()
+  const { user, status } = useAuth()
 
-  if (loading) return null
+  if (status === "unknown") return null
   if (!user) return <Navigate to="/login" replace />
   return children
 }

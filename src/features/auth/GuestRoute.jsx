@@ -2,9 +2,9 @@ import { Navigate } from "react-router"
 import { useAuth } from "./useAuth.js"
 
 export default function GuestRoute({ children }) {
-  const { user, loading } = useAuth()
+  const { user, status } = useAuth()
 
-  if (loading) return null
+  if (status === "unknown") return null
   if (user) return <Navigate to="/dashboard" replace />
   return children
 }
